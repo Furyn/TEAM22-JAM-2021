@@ -15,15 +15,34 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int playerID = 0;
     [SerializeField] private Player player;
 
-    // Start is called before the first frame update
-    private void Start()
+    public void initReInput(int newPLayerID,CustomController controller, CustomController keyboard, CustomController mouse)
     {
-        player = ReInput.players.GetPlayer(playerID);
+        playerID = newPLayerID;
+        player = Rewired.ReInput.players.GetPlayer(playerID);
+        if (playerID == 0)
+        {
+            player.controllers.AddController(Rewired.ReInput.controllers.Joysticks[0], true);
+            player.controllers.hasKeyboard = true;
+        }
+        else
+        {
+            if (controller != null)
+                player.controllers.AddController(controller, true);
+            if (keyboard != null)
+                player.controllers.AddController(keyboard, true);
+            if (mouse != null)
+                player.controllers.AddController(mouse, true);
+        }
     }
 
     // Update is called once per frame
     private void Update()
     {
+        if (player == null)
+        {
+            Debug.Log("NOT SETUP CONTROLLER");
+            return;
+        }
         float moveX = player.GetAxis("Move X");
         float moveZ = player.GetAxis("Move Z");
 
