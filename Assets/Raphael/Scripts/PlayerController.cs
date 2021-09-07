@@ -10,7 +10,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Rigidbody rb;
 
     [SerializeField] private float speed;
-    [SerializeField] private float rotationSpeed;
+    [SerializeField] private float movementRotationSpeed;
+    [SerializeField] private float lookRotationSpeed;
 
     [SerializeField] private int playerID = 0;
     [SerializeField] private Player player;
@@ -39,19 +40,19 @@ public class PlayerController : MonoBehaviour
         if (movement != Vector3.zero && lookDirection == Vector3.zero)
         {
             UnityEngine.Quaternion toRotation = UnityEngine.Quaternion.LookRotation(movement, Vector3.up);
-            transform.rotation = UnityEngine.Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+            transform.rotation = UnityEngine.Quaternion.RotateTowards(transform.rotation, toRotation, movementRotationSpeed * Time.deltaTime);
         }
 
         else if (movement == Vector3.zero && lookDirection != Vector3.zero)
         {
             UnityEngine.Quaternion toRotation = UnityEngine.Quaternion.LookRotation(lookDirection, Vector3.up);
-            transform.rotation = UnityEngine.Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+            transform.rotation = UnityEngine.Quaternion.RotateTowards(transform.rotation, toRotation, lookRotationSpeed * Time.deltaTime);
         }
 
         else if (movement != Vector3.zero && lookDirection != Vector3.zero)
         {
             UnityEngine.Quaternion toRotation = UnityEngine.Quaternion.LookRotation(lookDirection, Vector3.up);
-            transform.rotation = UnityEngine.Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+            transform.rotation = UnityEngine.Quaternion.RotateTowards(transform.rotation, toRotation, lookRotationSpeed * Time.deltaTime);
         }
     }
 }
