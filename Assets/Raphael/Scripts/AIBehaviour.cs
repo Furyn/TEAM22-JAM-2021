@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 public class AIBehaviour : MonoBehaviour
 {
-    [SerializeField] private Camera cam;
+    //[SerializeField] private Camera cam;
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private float timeMin = 0.5f;
     [SerializeField] private float timeMax = 5.0f;
@@ -40,8 +40,8 @@ public class AIBehaviour : MonoBehaviour
     private IEnumerator NextPos()
     {
         timeUntilNextPos = Random.Range(timeMin, timeMax);
-        posX = Random.Range(-5.0f, 5.0f);
-        posZ = Random.Range(-5.0f, 5.0f);
+        posX = Random.Range(-10.0f, 10.0f);
+        posZ = Random.Range(-10.0f, 10.0f);
         Vector3 destination = new Vector3(posX, 0, posZ);
         agent.SetDestination(destination);
         yield return new WaitForSeconds(timeUntilNextPos);

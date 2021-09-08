@@ -4,4 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Raphael/SceneRaf2.unity
+    guid: 3efea8f1fd1a0e84a8d580d31a46dd9b
+  m_configObjects: {}

@@ -1,64 +1,85 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
 using UnityEngine;
-using Vector3 = UnityEngine.Vector3;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private Rigidbody rb;
+    private Rigidbody rb;
 
-    [SerializeField] private float speed;
-    [SerializeField] private float movementRotationSpeed;
-    [SerializeField] private float lookRotationSpeed;
+    [SerializeField]
+    private float playerSpeed = 2.0f;
+    [SerializeField]
+    private float gravityValue = -100f;
+    [SerializeField]
+    private float rotationSpeed = 1440f;
 
-    [SerializeField] private int playerID = 0;
-    [SerializeField] private Player player;
+    private Vector2 movementInput = Vector2.zero;
+    private Vector2 lookInput = Vector2.zero;
+    private bool isGrounded = false;
 
 
     private void Start()
     {
-        /*player = Rewired.ReInput.players.GetPlayer(playerID);*/
+        rb = gameObject.GetComponent<Rigidbody>();
     }
 
-
-    // Update is called once per frame
-    private void Update()
+    public void OnMove(InputAction.CallbackContext context)
     {
-        if (player == null)
+        movementInput = context.ReadValue<Vector2>();
+    }
+
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        lookInput = context.ReadValue<Vector2>();
+    }
+
+    void Update()
+    {
+        if (!isGrounded)
         {
-            Debug.Log("NOT SETUP CONTROLLER");
-            return;
+            Vector2 gravity = new Vector3(0, gravityValue, 0);
+            rb.AddForce(gravity, ForceMode.Acceleration);
         }
 
-        float moveX = player.GetAxis("Move X");
-        float moveZ = player.GetAxis("Move Z");
+        Vector3 move = new Vector3(movementInput.x, 0, movementInput.y);
+        rb.velocity = move.normalized * playerSpeed;
 
-        Vector3 movement = new Vector3(moveX, 0, moveZ);
-        rb.velocity = movement.normalized * speed;
+        Vector3 look = new Vector3(lookInput.x, 0, lookInput.y);
 
-        float lookX = player.GetAxis("Look X");
-        float lookZ = player.GetAxis("Look Z");
-
-        Vector3 lookDirection = new Vector3(lookX, 0, lookZ);
-        lookDirection = lookDirection.normalized;
-
-        if (movement != Vector3.zero && lookDirection == Vector3.zero)
+        if (move != Vector3.zero && look == Vector3.zero)
         {
-            UnityEngine.Quaternion toRotation = UnityEngine.Quaternion.LookRotation(movement, Vector3.up);
-            transform.rotation = UnityEngine.Quaternion.RotateTowards(transform.rotation, toRotation, movementRotationSpeed * Time.deltaTime);
+            UnityEngine.Quaternion toRotation = UnityEngine.Quaternion.LookRotation(move, Vector3.up);
+            transform.rotation = UnityEngine.Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
         }
 
-        else if (movement == Vector3.zero && lookDirection != Vector3.zero)
+        else if (move != Vector3.zero && look != Vector3.zero)
         {
-            UnityEngine.Quaternion toRotation = UnityEngine.Quaternion.LookRotation(lookDirection, Vector3.up);
-            transform.rotation = UnityEngine.Quaternion.RotateTowards(transform.rotation, toRotation, lookRotationSpeed * Time.deltaTime);
+            UnityEngine.Quaternion toRotation = UnityEngine.Quaternion.LookRotation(look.normalized, Vector3.up);
+            transform.rotation = UnityEngine.Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
         }
 
-        else if (movement != Vector3.zero && lookDirection != Vector3.zero)
+        else if (move == Vector3.zero && look != Vector3.zero)
         {
-            UnityEngine.Quaternion toRotation = UnityEngine.Quaternion.LookRotation(lookDirection, Vector3.up);
-            transform.rotation = UnityEngine.Quaternion.RotateTowards(transform.rotation, toRotation, lookRotationSpeed * Time.deltaTime);
+            UnityEngine.Quaternion toRotation = UnityEngine.Quaternion.LookRotation(look.normalized, Vector3.up);
+            transform.rotation = UnityEngine.Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+        }
+
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Floor")
+        {
+            isGrounded = true;
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "Floor")
+        {
+            isGrounded = false;
         }
     }
 }
