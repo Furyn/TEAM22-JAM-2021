@@ -11,13 +11,11 @@ public class Event : MonoBehaviour
     {
         eventLaunch = true;
         timer = timerDuration;
-        Debug.Log(name + " was launched");
     }
     public virtual void Stop()
     {
         eventLaunch = false;
         timer = 0f;
-        Debug.Log("STOP");
     }
 
     private void Update()
@@ -25,7 +23,6 @@ public class Event : MonoBehaviour
         if (eventLaunch)
         {
             timer -= Time.deltaTime;
-            Debug.Log("UPDATE");
             if (timer <= 0f)
             {
                 Stop();
