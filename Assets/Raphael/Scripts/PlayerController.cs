@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
-using Rewired;
 using Vector3 = UnityEngine.Vector3;
 
 public class PlayerController : MonoBehaviour
@@ -15,25 +14,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int playerID = 0;
     [SerializeField] private Player player;
 
-    public void initReInput(int newPLayerID,CustomController controller, CustomController keyboard, CustomController mouse)
+
+    private void Start()
     {
-        playerID = newPLayerID;
-        player = Rewired.ReInput.players.GetPlayer(playerID);
-        if (playerID == 0)
-        {
-            player.controllers.AddController(Rewired.ReInput.controllers.Joysticks[0], true);
-            player.controllers.hasKeyboard = true;
-        }
-        else
-        {
-            if (controller != null)
-                player.controllers.AddController(controller, true);
-            if (keyboard != null)
-                player.controllers.AddController(keyboard, true);
-            if (mouse != null)
-                player.controllers.AddController(mouse, true);
-        }
+        /*player = Rewired.ReInput.players.GetPlayer(playerID);*/
     }
+
 
     // Update is called once per frame
     private void Update()
@@ -43,6 +29,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("NOT SETUP CONTROLLER");
             return;
         }
+
         float moveX = player.GetAxis("Move X");
         float moveZ = player.GetAxis("Move Z");
 
