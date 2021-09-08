@@ -9,6 +9,7 @@ public class Trap : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        Debug.Log(other.tag);
         if (other.tag == "Player")
         {
             ActionTrap action = other.GetComponent<ActionTrap>();

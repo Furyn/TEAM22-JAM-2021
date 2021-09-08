@@ -188,7 +188,7 @@ MonoBehaviour:
   endTerainPosition: {fileID: 1054596440}
   AllTrap:
   - {fileID: 1006355581228469104, guid: 4edcc883d6cef684db90d21c7aa5a4bc, type: 3}
-  nbMinTrap: 1
+  nbMinTrap: 5
   nbMaxTrap: 10
   posParentTrap: {fileID: 1146164506}
 --- !u!4 &112410719
@@ -1071,7 +1071,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
     m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 1955323454827105450, guid: f01195c7cbd20a04fae53c2622a689fc,
+  m_PlayerPrefab: {fileID: 1955323454827105450, guid: 6530acf1c9bc61f43860dc0575e43f00,
     type: 3}
   m_SplitScreen: 0
   m_MaintainAspectRatioInSplitScreen: 0
