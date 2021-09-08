@@ -810,6 +810,8 @@ MonoBehaviour:
   startTerainPosition: {fileID: 468921361}
   endTerainPosition: {fileID: 617363082}
   timerText: {fileID: 0}
+  mancheText: {fileID: 0}
+  messageManche: 'Manche : '
   allTrap: []
   nbMinTrap: 5
   nbMaxTrap: 10

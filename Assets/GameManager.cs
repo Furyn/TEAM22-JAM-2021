@@ -48,31 +48,31 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         UpdateManche();
-
+    
         if (waitBetweenEvent)
         {
             timerBetweenEvent -= Time.deltaTime;
-
+    
             if (timerBetweenEvent <= 0f && !EventIsActive())
             {
                 LaunchEventAlea();
                 waitBetweenEvent = false;
             }
         }
-
+    
         if (!waitBetweenEvent && !EventIsActive())
         {
             waitBetweenEvent = true;
             timerBetweenEvent = durationBetweenEvent;
         }
-
+    
     }
 
     public void SetUpNextManche()
     {
         timerManche = durationManche;
         waitBetweenManche = false;
-
+    
         for (int i = 0; i < nbNpc; i++)
         {
             GameObject randNpc = allNpcs[Random.Range(0, allNpcs.Length)];
@@ -96,34 +96,34 @@ public class GameManager : MonoBehaviour
             float randPosZ = Random.Range(endTerainPosition.position.z, startTerainPosition.position.z);
             Instantiate(randTrap, new Vector3(randPosX, randTrap.transform.position.y, randPosZ), Quaternion.identity, posParentTrap);
         }
-
+    
     }
-
+    
     public void StopCurrentManche()
     {
         mancheStarted = false;
         timerManche = 0f;
         timerBetweenManche = durationBetweenManche;
         waitBetweenManche = true;
-
+    
         for (int i = 0; i < posParentNPC.childCount; i++)
         {
             Destroy(posParentNPC.GetChild(i).gameObject);
         }
-
+    
         for (int i = 0; i < posParentTrap.childCount; i++)
         {
             Destroy(posParentTrap.GetChild(i).gameObject);
         }
-
+    
     }
-
+    
     public void LaunchEventAlea()
     {
         Event randEvent = allEvent[Random.Range(0, allEvent.Length)];
         randEvent.Apply();
     }
-
+    
     private bool EventIsActive()
     {
         bool oneIsActive = false;
@@ -139,22 +139,22 @@ public class GameManager : MonoBehaviour
 
     private void UpdateManche()
     {
-
+    
         timerText.text = ((int)timerManche).ToString();
         if (mancheStarted)
         {
             timerManche -= Time.deltaTime;
-
+    
             if (timerManche <= 0f)
             {
                 StopCurrentManche();
             }
         }
-
+    
         if (waitBetweenManche)
         {
             timerBetweenManche -= Time.deltaTime;
-
+    
             if (timerBetweenManche <= 0f && current_manche < manche)
             {
                 SetUpNextManche();
