@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public Transform startTerainPosition = null;
     public Transform endTerainPosition = null;
     public Text timerText = null;
+    public Text mancheText = null;
+    public string messageManche = "Manche : ";
 
     private float timerManche = 0f;
     private bool mancheStarted = false;
@@ -69,6 +71,7 @@ public class GameManager : MonoBehaviour
     public void SetUpNextManche()
     {
         timerManche = durationManche;
+        waitBetweenManche = false;
 
         for (int i = 0; i < nbNpc; i++)
         {
@@ -84,6 +87,7 @@ public class GameManager : MonoBehaviour
         mancheStarted = true;
         timerManche = durationManche;
         current_manche++;
+        mancheText.text = messageManche + current_manche;
         int nbrandTrap = Random.Range(nbMinTrap, nbMaxTrap);
         for (int i = 0; i < nbrandTrap; i++)
         {
@@ -100,6 +104,18 @@ public class GameManager : MonoBehaviour
         mancheStarted = false;
         timerManche = 0f;
         timerBetweenManche = durationBetweenManche;
+        waitBetweenManche = true;
+
+        for (int i = 0; i < posParentNPC.childCount; i++)
+        {
+            Destroy(posParentNPC.GetChild(i).gameObject);
+        }
+
+        for (int i = 0; i < posParentTrap.childCount; i++)
+        {
+            Destroy(posParentTrap.GetChild(i).gameObject);
+        }
+
     }
 
     public void LaunchEventAlea()
@@ -137,7 +153,13 @@ public class GameManager : MonoBehaviour
 
         if (waitBetweenManche)
         {
+            timerBetweenManche -= Time.deltaTime;
 
+            if (timerBetweenManche <= 0f && current_manche < manche)
+            {
+                SetUpNextManche();
+                StartNextManche();
+            }
         }
     }
 
