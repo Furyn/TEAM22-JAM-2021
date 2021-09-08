@@ -54,19 +54,19 @@ public class Aim2: MonoBehaviour
 
         if (targets.Count > 0) 
         {
-            foreach (GameObject target in targets)
+            for (int i = 0; i < targets.Count; i++)
             {
-                if (target)
+                if (targets[i])
                 {
-                    float targetDistance = Vector3.Distance(sight.transform.position, target.transform.position);
+                    float targetDistance = Vector3.Distance(sight.transform.position, targets[i].transform.position);
                     if (targetDistance < distance)
                     {
-                        temporaryTarget = target;
+                        temporaryTarget = targets[i];
                     }
                 }
                 else
                 {
-                    targets.Remove(target);
+                    targets.Remove(targets[i]);
                 }
             }
 
@@ -74,16 +74,17 @@ public class Aim2: MonoBehaviour
             {
                 if(focusedTarget != null)
                 {
-                    temporaryTarget.GetComponent<MeshRenderer>().material.color = Color.green;
                     focusedTarget.GetComponent<MeshRenderer>().material.color = Color.red;
                 }
+                temporaryTarget.GetComponent<MeshRenderer>().material.color = Color.green;
                 focusedTarget = temporaryTarget;
             }
         }
         else
         {
-            if (focusedTarget)
+            if (focusedTarget != null)
             {
+                focusedTarget.GetComponent<MeshRenderer>().material.color = Color.red;
                 focusedTarget = null;
             }
         }
