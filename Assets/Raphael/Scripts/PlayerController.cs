@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody rb;
 
+    private Animator Animator;
+
     [SerializeField]
     private float playerSpeed = 2.0f;
     [SerializeField]
@@ -21,6 +23,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        Animator = gameObject.GetComponent<Animator>();
         rb = gameObject.GetComponent<Rigidbody>();
     }
 
@@ -64,6 +67,8 @@ public class PlayerController : MonoBehaviour
             UnityEngine.Quaternion toRotation = UnityEngine.Quaternion.LookRotation(look.normalized, Vector3.up);
             transform.rotation = UnityEngine.Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
         }
+
+        Animator.SetFloat("Speed", (Mathf.Abs(rb.velocity.x) + Mathf.Abs(rb.velocity.z)));
 
     }
 

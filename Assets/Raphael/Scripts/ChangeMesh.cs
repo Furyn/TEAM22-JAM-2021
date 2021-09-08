@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class ChangeMesh : MonoBehaviour
 {
-    public GameObject PlayerManager;
+    private GameObject PlayerManager;
     void Start()
     {
         int playerCount = GameObject.Find("PlayerManager").GetComponent<PlayerCount>().playerCount;
 
         if (playerCount == 1)
         {
-            gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+            gameObject.GetComponent<MeshRenderer>().material.color = Color.magenta;
         }
 
         else if (playerCount == 2)

@@ -4821,6 +4821,7 @@ GameObject:
   - component: {fileID: 1955323454827105440}
   - component: {fileID: 70289650}
   - component: {fileID: 1362678155095129375}
+  - component: {fileID: 604530563968585938}
   m_Layer: 0
   m_Name: Player Blood
   m_TagString: Player
@@ -5057,6 +5058,19 @@ MonoBehaviour:
   mooveSpeed: 1
   sight: {fileID: 120189586835448494, guid: 2deb4c758b0a0ac47b6e69630880af5c, type: 3}
   targets: []
+--- !u!114 &604530563968585938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955323454827105450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f4317511a88fb84ea4c4603dc846f3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerManager: {fileID: 0}
 --- !u!1 &1955323455094795023
 GameObject:
   m_ObjectHideFlags: 0

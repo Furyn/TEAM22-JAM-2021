@@ -7,35 +7,30 @@ using UnityEngine.UIElements;
 
 public class AIBehaviour : MonoBehaviour
 {
-    //[SerializeField] private Camera cam;
+    private Animator Animator;
+
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private float timeMin = 0.5f;
     [SerializeField] private float timeMax = 5.0f;
 
+    private NavMeshAgent navAgent;
 
     private float timeUntilNextPos;
     private float posX;
     private float posZ;
 
-
     private void Start()
     {
+        Animator = gameObject.GetComponent<Animator>();
+        navAgent = gameObject.GetComponent<NavMeshAgent>();
         StartCoroutine(NextPos());
     }
 
-    //void Update()
-    //{
-    //    if (Input.GetMouseButtonDown(0))
-    //    {
-    //        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-    //        RaycastHit hit;
-    //
-    //        if (Physics.Raycast(ray, out hit))
-    //        {
-    //            agent.SetDestination((hit.point));
-    //        }
-    //    }
-    //}
+    void Update()
+    {
+        Animator.SetFloat("Speed", (Mathf.Abs(navAgent.velocity.x) + Mathf.Abs(navAgent.velocity.z)));
+        //Animator.SetFloat("Speed", );
+    }
 
     private IEnumerator NextPos()
     {
