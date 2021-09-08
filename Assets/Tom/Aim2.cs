@@ -16,6 +16,8 @@ public class Aim2: MonoBehaviour
 
     public List<GameObject> targets;
     private GameObject focusedTarget;
+
+    private bool canShoot = true;
     #endregion
 
     private void Start()
@@ -34,7 +36,11 @@ public class Aim2: MonoBehaviour
 
     public void OnShoot(InputAction.CallbackContext context)
     {
-
+        if(canShoot && focusedTarget)
+        {
+            Debug.Log("boom");
+            canShoot = false;
+        }
     }
 
     void Update()
@@ -46,18 +52,41 @@ public class Aim2: MonoBehaviour
         float distance = float.PositiveInfinity;
         GameObject temporaryTarget = null;
 
-        foreach (GameObject target in targets)
+        if (targets.Count > 0) 
         {
-            float targetDistance = Vector3.Distance(sight.transform.position, target.transform.position);
-            if (targetDistance < distance)
+            for (int i = 0; i < targets.Count; i++)
             {
-                temporaryTarget = target;
+                if (targets[i])
+                {
+                    float targetDistance = Vector3.Distance(sight.transform.position, targets[i].transform.position);
+                    if (targetDistance < distance)
+                    {
+                        temporaryTarget = targets[i];
+                    }
+                }
+                else
+                {
+                    targets.Remove(targets[i]);
+                }
+            }
+
+            if (temporaryTarget != focusedTarget)
+            {
+                if(focusedTarget != null)
+                {
+                    focusedTarget.GetComponent<MeshRenderer>().material.color = Color.red;
+                }
+                temporaryTarget.GetComponent<MeshRenderer>().material.color = Color.green;
+                focusedTarget = temporaryTarget;
             }
         }
-
-        if (temporaryTarget != focusedTarget)
+        else
         {
-            focusedTarget = temporaryTarget;
+            if (focusedTarget != null)
+            {
+                focusedTarget.GetComponent<MeshRenderer>().material.color = Color.red;
+                focusedTarget = null;
+            }
         }
 
         Debug.Log(focusedTarget);

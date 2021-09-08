@@ -267,6 +267,7 @@ MonoBehaviour:
   durationBetweenManche: 5
   startTerainPosition: {fileID: 2968784245398992581}
   endTerainPosition: {fileID: 2968784244550184201}
+  timerText: {fileID: 0}
   allTrap:
   - {fileID: 1006355581228469104, guid: 4edcc883d6cef684db90d21c7aa5a4bc, type: 3}
   nbMinTrap: 5
