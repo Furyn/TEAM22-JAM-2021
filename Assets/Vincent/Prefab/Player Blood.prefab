@@ -4820,6 +4820,7 @@ GameObject:
   - component: {fileID: 1955323454827105447}
   - component: {fileID: 1955323454827105440}
   - component: {fileID: 70289650}
+  - component: {fileID: 1362678155095129375}
   m_Layer: 0
   m_Name: Player Blood
   m_TagString: Player
@@ -4935,13 +4936,37 @@ MonoBehaviour:
     m_ActionId: f52a82f4-d55d-4f73-8a33-8b1f56f6512f
     m_ActionName: Player/Movement[/Keyboard/z,/Keyboard/s,/Keyboard/q,/Keyboard/d,/DualShock4GamepadHID/leftStick]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1362678155095129375}
+        m_TargetAssemblyTypeName: Aim2, Assembly-CSharp
+        m_MethodName: OnShoot
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 716c9c04-9c8c-4703-a472-f1c4eb70810c
     m_ActionName: Player/Shoot[/Keyboard/space,/DualShock4GamepadHID/rightTrigger]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1955323454827105440}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnLook
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1362678155095129375}
+        m_TargetAssemblyTypeName: Aim2, Assembly-CSharp
         m_MethodName: OnLook
         m_Mode: 0
         m_Arguments:
@@ -5017,6 +5042,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particleSystemBlood: {fileID: 233180649}
+--- !u!114 &1362678155095129375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955323454827105450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d48439c9b7560b4eb535ae75d1c05e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mooveSpeed: 1
+  sight: {fileID: 120189586835448494, guid: 2deb4c758b0a0ac47b6e69630880af5c, type: 3}
+  targets: []
 --- !u!1 &1955323455094795023
 GameObject:
   m_ObjectHideFlags: 0
