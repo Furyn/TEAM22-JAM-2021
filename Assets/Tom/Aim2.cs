@@ -75,7 +75,7 @@ public class Aim2: MonoBehaviour
                 score = (int)gameManager.GetType().GetField("p" + pNb + "Score").GetValue(gameManager);
                 Debug.Log("Player " + pNb + " score: " + score);
 
-                focusedTarget.GetComponent<PlayerController>();
+                focusedTarget.GetComponent<PlayerController>().DIE();
             }
             else if(focusedTarget.tag == "NPC")
             {
@@ -143,11 +143,11 @@ public class Aim2: MonoBehaviour
                     focusedTarget.GetComponent<MeshRenderer>().material.color = Color.red;
                 }
 
-                if (temporaryTarget.tag == "NPC")
+                if (temporaryTarget && temporaryTarget.tag == "NPC")
                 {
                     temporaryTarget.GetComponent<AIBehaviour>().sightsNb += 1;
                 }
-                else if (temporaryTarget.tag == "Player")
+                else if (temporaryTarget && temporaryTarget.tag == "Player")
                 {
                     temporaryTarget.GetComponent<PlayerController>().sightsNb += 1;
                 }
