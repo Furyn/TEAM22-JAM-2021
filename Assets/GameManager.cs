@@ -22,6 +22,11 @@ public class GameManager : MonoBehaviour
     public Text scoreTextP2 = null;
     public Text scoreTextP3 = null;
     public Text scoreTextP4 = null;
+    public GameObject liveScore = null;
+    public Text liveScoreTextP1 = null;
+    public Text liveScoreTextP2 = null;
+    public Text liveScoreTextP3 = null;
+    public Text liveScoreTextP4 = null;
 
     [Header("Manche Settings")]
     public int current_manche = 0;
@@ -151,8 +156,6 @@ public class GameManager : MonoBehaviour
             waitBetweenEvent = true;
             timerBetweenEvent = durationBetweenEvent;
         }
-
-
     
     }
 
@@ -160,7 +163,7 @@ public class GameManager : MonoBehaviour
     {
         timerManche = durationManche;
         waitBetweenManche = false;
-    
+
         for (int i = 0; i < nbNpc; i++)
         {
             GameObject randNpc = allNpcs[Random.Range(0, allNpcs.Length)];
@@ -181,6 +184,8 @@ public class GameManager : MonoBehaviour
 
     public void StartNextManche()
     {
+
+        liveScore.SetActive(true);
         playerInputManager.EnableJoining();
         mancheStarted = true;
         timerManche = durationManche;
@@ -307,6 +312,11 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        liveScoreTextP1.text = "Player 1 : "+p1Score.ToString();
+        liveScoreTextP2.text = "Player 2 : "+p2Score.ToString();
+        liveScoreTextP3.text = "Player 3 : "+p3Score.ToString();
+        liveScoreTextP4.text = "Player 4 : "+p4Score.ToString();
+
     }
 
     private void SetUpEvent()
@@ -329,6 +339,7 @@ public class GameManager : MonoBehaviour
 
     private void ShowFinalScreen()
     {
+        liveScore.SetActive(false);
         screenFinal.SetActive(true);
         scoreTextP1.text = p1Score.ToString();
         scoreTextP2.text = p2Score.ToString();
