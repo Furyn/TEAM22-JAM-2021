@@ -68,7 +68,7 @@ public class Aim2: MonoBehaviour
         {
             Debug.Log("boom");
 
-            if(focusedTarget.tag == "player")
+            if(focusedTarget.tag == "Player")
             {
                 int score = (int)gameManager.GetType().GetField("p" + pNb + "Score").GetValue(gameManager);
                 gameManager.GetType().GetField("p" + pNb + "Score").SetValue(gameManager, score + playerKillScore);

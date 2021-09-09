@@ -96,15 +96,13 @@ public class PlayerController : MonoBehaviour
     {
         imDead = true;
         GetComponent<Aim2>().imDead = true;
-
-        //play anim
-        WaitForDeathAnim(1 /*death anim time*/);
+        Animator.SetTrigger("Death");
+        StartCoroutine(WaitForDeathAnim(3));
     }
 
     IEnumerator WaitForDeathAnim(float time)
     {
         yield return new WaitForSeconds(time);
-
         transform.position = new Vector3(transform.position.x, transform.position.y - 50, transform.position.z);
     }
 }
