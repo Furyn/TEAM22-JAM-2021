@@ -1044,6 +1044,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2016634058, guid: 37e9841fd6aa7f64f90b2923c05810e7, type: 3}
+      propertyPath: allPrefabPiege.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2016634058, guid: 37e9841fd6aa7f64f90b2923c05810e7, type: 3}
+      propertyPath: allPrefabPiege.Array.data[0]
+      value: 
+      objectReference: {fileID: 2080748912302422828, guid: 2e6620d2a46f6954cad497575ee67abe,
+        type: 3}
     - target: {fileID: 2968784245492297740, guid: 37e9841fd6aa7f64f90b2923c05810e7,
         type: 3}
       propertyPath: m_Name
@@ -1119,5 +1128,15 @@ PrefabInstance:
       propertyPath: playerInputManager
       value: 
       objectReference: {fileID: 1051132735}
+    - target: {fileID: 2968784245492297743, guid: 37e9841fd6aa7f64f90b2923c05810e7,
+        type: 3}
+      propertyPath: allEvent.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2968784245492297743, guid: 37e9841fd6aa7f64f90b2923c05810e7,
+        type: 3}
+      propertyPath: allEvent.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37e9841fd6aa7f64f90b2923c05810e7, type: 3}
