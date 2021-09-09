@@ -23,6 +23,11 @@ public class Aim2: MonoBehaviour
     private bool onCD = false;
     [SerializeField] private float cooldown;
     public Vector3 spawnPoint;
+
+    private bool NPCPlayerFollow = false;
+    [SerializeField] private float followTime;
+    private float currentFollowTime;
+    [SerializeField] private float NPCHitDistance;
     #endregion
 
     private void Start()
@@ -56,13 +61,12 @@ public class Aim2: MonoBehaviour
                 gameManager.GetType().GetField("p" + pNb + "Score").SetValue(gameManager, score + playerKillScore);
                 score = (int)gameManager.GetType().GetField("p" + pNb + "Score").GetValue(gameManager);
                 Debug.Log("Player " + pNb + " score: " + score);
+
+                //Kill player
             }
             else if(focusedTarget.tag == "NPC")
             {
-                int score = (int)gameManager.GetType().GetField("p" + pNb + "Score").GetValue(gameManager);
-                gameManager.GetType().GetField("p" + pNb + "Score").SetValue(gameManager, score + playerKillScore);
-                score = (int)gameManager.GetType().GetField("p" + pNb + "Score").GetValue(gameManager);
-                Debug.Log("Player " + pNb + " score: " + score);
+                NPCPlayerFollow = true;
             }
 
             sight.transform.position = spawnPoint;
@@ -78,13 +82,16 @@ public class Aim2: MonoBehaviour
 
     void Update()
     {
+        #region Sight movement
         Vector3 lookDirection = new Vector3(lookInput.x, 0, lookInput.y);
 
         if (!onCD)
         {
             sight.transform.position += lookDirection * 0.01f * mooveSpeed;
         }
+        #endregion
 
+        #region Targets detection
         float distance = float.PositiveInfinity;
         GameObject temporaryTarget = null;
 
@@ -124,6 +131,29 @@ public class Aim2: MonoBehaviour
                 focusedTarget = null;
             }
         }
+        #endregion
+
+        #region NPC player Follow
+        if(NPCPlayerFollow && focusedTarget)
+        {
+            if(currentFollowTime < followTime)
+            {
+                focusedTarget.GetComponent<AIBehaviour>().SetDestination(transform.position);
+                currentFollowTime += Time.deltaTime;
+                if(Vector3.Distance(transform.position, focusedTarget.transform.position) < NPCHitDistance)
+                {
+                    //HitPlayer
+                }
+            }
+            else
+            {
+                NPCPlayerFollow = false;
+                focusedTarget.GetComponent<AIBehaviour>().SetDestination(Vector3.zero);
+                currentFollowTime = 0;
+            }
+
+        }
+        #endregion
     }
 
     IEnumerator Cooldown(float time)
