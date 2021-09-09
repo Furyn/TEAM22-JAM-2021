@@ -12,18 +12,23 @@ public class Aim2: MonoBehaviour
     [SerializeField] private float mooveSpeed;
     [SerializeField] private GameObject sight;
 
-    private Rigidbody2D rb;
+    [SerializeField] private GameObject playerManager;
+    public Color sightColor;
 
     public List<GameObject> targets;
     private GameObject focusedTarget;
 
-    private bool canShoot = true;
+    private bool onCD = false;
+    [SerializeField] private float cooldown;
+    public Vector3 spawnPoint;
     #endregion
 
     private void Start()
     {
-        sight = Instantiate(sight, new Vector3(transform.position.x, 1, transform.position.z), sight.transform.rotation);
-        rb = sight.GetComponent<Rigidbody2D>();
+        spawnPoint = new Vector3(transform.position.x, 1, transform.position.z);
+
+        sight = Instantiate(sight, spawnPoint, sight.transform.rotation);
+
         Sight sightScript = sight.GetComponent<Sight>();
         sightScript.makerScript = this;
 
@@ -36,18 +41,38 @@ public class Aim2: MonoBehaviour
 
     public void OnShoot(InputAction.CallbackContext context)
     {
-        if(canShoot && focusedTarget)
+        if(!onCD && focusedTarget)
         {
             Debug.Log("boom");
-            canShoot = false;
+
+            if(focusedTarget.tag == "player")
+            {
+
+            }
+            else if(focusedTarget.tag == "NPC")
+            {
+
+            }
+
+            sight.transform.position = spawnPoint;
+
+            onCD = true;
+            StartCoroutine(Cooldown(cooldown));
+        }
+        else if (onCD)
+        {
+            Debug.Log("onCooldown");
         }
     }
 
     void Update()
     {
         Vector3 lookDirection = new Vector3(lookInput.x, 0, lookInput.y);
-        /*rb.velocity = lookDirection.normalized * mooveSpeed;*/
-        sight.transform.position +=  lookDirection * 0.01f * mooveSpeed;
+
+        if (!onCD)
+        {
+            sight.transform.position += lookDirection * 0.01f * mooveSpeed;
+        }
 
         float distance = float.PositiveInfinity;
         GameObject temporaryTarget = null;
@@ -56,7 +81,7 @@ public class Aim2: MonoBehaviour
         {
             for (int i = 0; i < targets.Count; i++)
             {
-                if (targets[i])
+                if (targets[i] && targets[i] != gameObject)
                 {
                     float targetDistance = Vector3.Distance(sight.transform.position, targets[i].transform.position);
                     if (targetDistance < distance)
@@ -88,7 +113,12 @@ public class Aim2: MonoBehaviour
                 focusedTarget = null;
             }
         }
+    }
 
-        Debug.Log(focusedTarget);
+    IEnumerator Cooldown(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        onCD = false;
     }
 }

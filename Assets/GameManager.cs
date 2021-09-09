@@ -1,8 +1,14 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    //Players score
+    [HideInInspector] public int p1Score;
+    [HideInInspector] public int p2Score;
+    [HideInInspector] public int p3Score;
+    [HideInInspector] public int p4Score;
 
     [Header("Manche settings")]
     public int current_manche = 0;
@@ -14,7 +20,9 @@ public class GameManager : MonoBehaviour
     public Text timerText = null;
     public Text mancheText = null;
     public string messageManche = "Manche : ";
+    public PlayerInputManager playerInputManager = null;
 
+    private int nbPlayer = 0;
     private float timerManche = 0f;
     private bool mancheStarted = false;
     private float timerBetweenManche = 0f;
@@ -80,10 +88,21 @@ public class GameManager : MonoBehaviour
             float randPosZ = Random.Range(endTerainPosition.position.z, startTerainPosition.position.z);
             Instantiate(randNpc, new Vector3(randPosX, randNpc.transform.position.y, randPosZ), Quaternion.identity, posParentNPC);
         }
+
+        Debug.Log(nbPlayer);
+        for (int i = 0; i < nbPlayer; i++)
+        {
+            float randPosX = Random.Range(startTerainPosition.position.x, endTerainPosition.position.x);
+            float randPosZ = Random.Range(endTerainPosition.position.z, startTerainPosition.position.z);
+            Instantiate(playerInputManager.playerPrefab, new Vector3(randPosX, playerInputManager.playerPrefab.transform.position.y, randPosZ), Quaternion.identity, posParentNPC);
+            
+        }
+
     }
 
     public void StartNextManche()
     {
+        playerInputManager.EnableJoining();
         mancheStarted = true;
         timerManche = durationManche;
         current_manche++;
@@ -105,7 +124,10 @@ public class GameManager : MonoBehaviour
         timerManche = 0f;
         timerBetweenManche = durationBetweenManche;
         waitBetweenManche = true;
-    
+        playerInputManager.DisableJoining();
+        GameObject[] allPlayer = GameObject.FindGameObjectsWithTag("Player");
+        nbPlayer = allPlayer.Length;
+
         for (int i = 0; i < posParentNPC.childCount; i++)
         {
             Destroy(posParentNPC.GetChild(i).gameObject);
@@ -115,7 +137,12 @@ public class GameManager : MonoBehaviour
         {
             Destroy(posParentTrap.GetChild(i).gameObject);
         }
-    
+
+        for (int i = 0; i < allPlayer.Length; i++)
+        {
+            Destroy(allPlayer[i]);
+        }
+
     }
     
     public void LaunchEventAlea()

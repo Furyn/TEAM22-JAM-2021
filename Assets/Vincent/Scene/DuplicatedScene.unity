@@ -1116,8 +1116,8 @@ PrefabInstance:
       objectReference: {fileID: 996507216}
     - target: {fileID: 2968784245492297743, guid: 37e9841fd6aa7f64f90b2923c05810e7,
         type: 3}
-      propertyPath: durationManche
-      value: 5
-      objectReference: {fileID: 0}
+      propertyPath: playerInputManager
+      value: 
+      objectReference: {fileID: 1051132735}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37e9841fd6aa7f64f90b2923c05810e7, type: 3}
