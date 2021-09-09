@@ -19,6 +19,8 @@ public class AIBehaviour : MonoBehaviour
     private float posX;
     private float posZ;
 
+    private Vector3 targetPiege = new Vector3();
+
     private void Start()
     {
         Animator = gameObject.GetComponent<Animator>();
@@ -28,18 +30,36 @@ public class AIBehaviour : MonoBehaviour
 
     void Update()
     {
-        Animator.SetFloat("Speed", (Mathf.Abs(navAgent.velocity.x) + Mathf.Abs(navAgent.velocity.z)));
+        if (Animator)
+        {
+            Animator.SetFloat("Speed", (Mathf.Abs(navAgent.velocity.x) + Mathf.Abs(navAgent.velocity.z)));
+        }
         //Animator.SetFloat("Speed", );
     }
 
     private IEnumerator NextPos()
     {
-        timeUntilNextPos = Random.Range(timeMin, timeMax);
-        posX = Random.Range(-10.0f, 10.0f);
-        posZ = Random.Range(-10.0f, 10.0f);
-        Vector3 destination = new Vector3(posX, 0, posZ);
+        Vector3 destination;
+        if (targetPiege == Vector3.zero)
+        {
+            timeUntilNextPos = Random.Range(timeMin, timeMax);
+            posX = Random.Range(-10.0f, 10.0f);
+            posZ = Random.Range(-10.0f, 10.0f);
+            destination = new Vector3(posX, 0, posZ);
+        }
+        else
+        {
+            destination = targetPiege;
+        }
+
         agent.SetDestination(destination);
         yield return new WaitForSeconds(timeUntilNextPos);
         StartCoroutine(NextPos());
+
+    }
+
+    public void SetDestination(Vector3 position)
+    {
+        targetPiege = position;
     }
 }

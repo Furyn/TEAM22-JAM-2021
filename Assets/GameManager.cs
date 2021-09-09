@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
         SetUpNextManche();
         StartNextManche();
         LaunchEventAlea();
+        SetUpEvent();
     }
 
     private void Update()
@@ -187,6 +188,14 @@ public class GameManager : MonoBehaviour
                 SetUpNextManche();
                 StartNextManche();
             }
+        }
+    }
+
+    private void SetUpEvent()
+    {
+        foreach (Event item in allEvent)
+        {
+            item.SetUpPostion(startTerainPosition, endTerainPosition);
         }
     }
 
