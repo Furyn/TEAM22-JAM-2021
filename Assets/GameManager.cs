@@ -4,6 +4,11 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    //Players score
+    [HideInInspector] public int p1Score;
+    [HideInInspector] public int p2Score;
+    [HideInInspector] public int p3Score;
+    [HideInInspector] public int p4Score;
 
     [Header("Manche settings")]
     public int current_manche = 0;

@@ -378,6 +378,7 @@ MonoBehaviour:
   mooveSpeed: 1
   sight: {fileID: 120189586835448494, guid: 2deb4c758b0a0ac47b6e69630880af5c, type: 3}
   targets: []
+  cooldown: 2
 --- !u!23 &5164270707896906728
 MeshRenderer:
   m_ObjectHideFlags: 0
