@@ -22,7 +22,7 @@ public class Aim2: MonoBehaviour
 
     public Color sightColor;
 
-    private bool shotOnCD = false;
+    [HideInInspector]public bool shotOnCD = false;
     [SerializeField] private float shotCooldown;
 
     [Header("GameManager")]
@@ -105,6 +105,11 @@ public class Aim2: MonoBehaviour
 
     void Update()
     {
+
+        if (Time.deltaTime == 0)
+        {
+            return;
+        }
         #region Sight movement
         Vector3 lookDirection = new Vector3(lookInput.x, 0, lookInput.y);
 

@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector] public int sightsNb;
 
-    private bool imDead = false;
+    [HideInInspector]public bool imDead = false;
 
     private void Start()
     {
@@ -41,9 +41,10 @@ public class PlayerController : MonoBehaviour
 
     public void OnPause()
     {
-        if (!pauseCooldown)
+        GameObject canvas = GameObject.Find("Canvas");
+
+        if (!pauseCooldown && !canvas.transform.GetChild(1).gameObject.activeSelf)
         {
-            GameObject canvas = GameObject.Find("Canvas");
             GameObject pausemenu = canvas.transform.GetChild(0).gameObject;
 
             if (Time.timeScale == 0f && pausemenu.activeSelf)
@@ -70,8 +71,24 @@ public class PlayerController : MonoBehaviour
         pauseCooldown = false;
     }
 
+    public void StartGame()
+    {
+        GameObject canvas = GameObject.Find("Canvas");
+
+        if(canvas.transform.GetChild(1).gameObject.activeSelf && canvas.GetComponent<CharacterScreen>().playerCount >= 2)
+        {
+            canvas.transform.GetChild(1).gameObject.SetActive(false);
+            Time.timeScale = 1f;
+        }
+    }
+
     void Update()
     {
+        if (Time.timeScale == 0f)
+        {
+            return;
+        }
+
         if (!imDead)
         {
             Vector3 move = new Vector3(movementInput.x, 0, movementInput.y);

@@ -17,6 +17,16 @@ public class GameManager : MonoBehaviour
     public GameObject startButton = null;
     private Image panelFadeImage = null;
     private GameObject[] allPlayer = new GameObject[0];
+    public GameObject screenFinal = null;
+    public Text scoreTextP1 = null;
+    public Text scoreTextP2 = null;
+    public Text scoreTextP3 = null;
+    public Text scoreTextP4 = null;
+    public GameObject liveScore = null;
+    public Text liveScoreTextP1 = null;
+    public Text liveScoreTextP2 = null;
+    public Text liveScoreTextP3 = null;
+    public Text liveScoreTextP4 = null;
 
     [Header("Manche Settings")]
     public int current_manche = 0;
@@ -58,6 +68,10 @@ public class GameManager : MonoBehaviour
     private float timerBeforeStart = 0f;
     private bool waitBeforeStart = false;
     private float timerBlackPanel = 0f;
+    private bool firstManche = false;
+    private bool lastSurvival = false;
+    private float durationLastSurvival = 1f;
+    private float timerLastSurvival = 0f;
 
     private void Start()
     {
@@ -71,6 +85,33 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         UpdateManche();
+
+        if (current_manche == 0)
+        {
+            firstManche = true;
+            allPlayer = GameObject.FindGameObjectsWithTag("Player");
+            foreach (GameObject item in allPlayer)
+            {
+                Aim2 aim = item.GetComponent<Aim2>();
+                if (!aim.shotOnCD)
+                {
+                    aim.shotOnCD = true;
+                }
+            }
+        }
+        else if(firstManche)
+        {
+            firstManche = false;
+            allPlayer = GameObject.FindGameObjectsWithTag("Player");
+            foreach (GameObject item in allPlayer)
+            {
+                Aim2 aim = item.GetComponent<Aim2>();
+                if (aim.shotOnCD)
+                {
+                    aim.shotOnCD = false;
+                }
+            }
+        }
 
         if( waitBeforeStart )
         {
@@ -89,7 +130,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (waitBeforeFirstEvent && !waitBeforeStart)
+        if (waitBeforeFirstEvent && !waitBeforeStart && current_manche != 0)
         {
             timerBeforeFirstEvent -= Time.deltaTime;
             if (timerBeforeFirstEvent <= 0f)
@@ -110,7 +151,7 @@ public class GameManager : MonoBehaviour
             }
         }
     
-        if (!waitBetweenEvent && !EventIsActive())
+        if (!waitBetweenEvent && !EventIsActive() && !waitBeforeFirstEvent)
         {
             waitBetweenEvent = true;
             timerBetweenEvent = durationBetweenEvent;
@@ -122,7 +163,7 @@ public class GameManager : MonoBehaviour
     {
         timerManche = durationManche;
         waitBetweenManche = false;
-    
+
         for (int i = 0; i < nbNpc; i++)
         {
             GameObject randNpc = allNpcs[Random.Range(0, allNpcs.Length)];
@@ -133,6 +174,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < allPlayer.Length; i++)
         {
+            allPlayer[i].GetComponent<PlayerController>().HeroesNeverDie();
             float randPosX = Random.Range(startTerainPosition.position.x, endTerainPosition.position.x);
             float randPosZ = Random.Range(endTerainPosition.position.z, startTerainPosition.position.z);
             allPlayer[i].transform.position = new Vector3(randPosX, startTerainPosition.position.y, randPosZ);
@@ -142,11 +184,17 @@ public class GameManager : MonoBehaviour
 
     public void StartNextManche()
     {
+
+        liveScore.SetActive(true);
         playerInputManager.EnableJoining();
         mancheStarted = true;
         timerManche = durationManche;
         current_manche++;
         mancheText.text = messageManche + current_manche;
+        timerBeforeFirstEvent = durationBeforeFirstEvent;
+        waitBetweenEvent = false;
+        timerBetweenEvent = durationBetweenEvent;
+        waitBeforeFirstEvent = true;
         int nbrandTrap = Random.Range(nbMinTrap, nbMaxTrap);
         for (int i = 0; i < nbrandTrap; i++)
         {
@@ -180,6 +228,12 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < allPlayer.Length; i++)
         {
             allPlayer[i].transform.position = new Vector3(100,-100,100);
+            allPlayer[i].GetComponent<Aim2>().sight.transform.position = new Vector3(100, -100, 100);
+        }
+
+        if (current_manche >= manche)
+        {
+            ShowFinalScreen();
         }
 
     }
@@ -215,6 +269,26 @@ public class GameManager : MonoBehaviour
             {
                 StopCurrentManche();
             }
+            if (!lastSurvival)
+            {
+                allPlayer = GameObject.FindGameObjectsWithTag("Player");
+                int nbPlayerAlive = 0;
+
+                foreach (GameObject player in allPlayer)
+                {
+                    if (!player.GetComponent<PlayerController>().imDead)
+                    {
+                        nbPlayerAlive++;
+                    }
+                }
+
+                if (nbPlayerAlive <= 1)
+                {
+                    lastSurvival = true;
+                    timerLastSurvival = durationLastSurvival;
+                }
+            }
+            
         }
     
         if (waitBetweenManche)
@@ -227,6 +301,22 @@ public class GameManager : MonoBehaviour
                 StartNextManche();
             }
         }
+
+        if (lastSurvival)
+        {
+            timerLastSurvival -= Time.deltaTime;
+            if (timerLastSurvival <= 0f)
+            {
+                lastSurvival = false;
+                StopCurrentManche();
+            }
+        }
+
+        liveScoreTextP1.text = "Player 1 : "+p1Score.ToString();
+        liveScoreTextP2.text = "Player 2 : "+p2Score.ToString();
+        liveScoreTextP3.text = "Player 3 : "+p3Score.ToString();
+        liveScoreTextP4.text = "Player 4 : "+p4Score.ToString();
+
     }
 
     private void SetUpEvent()
@@ -239,13 +329,24 @@ public class GameManager : MonoBehaviour
 
     public void ButtonStart()
     {
-
         timerText.gameObject.SetActive(true);
         mancheText.gameObject.SetActive(true);
         waitBeforeStart = true;
         timerBeforeStart = durationBeforeStart;
         panelFade.SetActive(true);
         startButton.SetActive(false);
+    }
+
+    private void ShowFinalScreen()
+    {
+        liveScore.SetActive(false);
+        screenFinal.SetActive(true);
+        scoreTextP1.text = p1Score.ToString();
+        scoreTextP2.text = p2Score.ToString();
+        scoreTextP3.text = p3Score.ToString();
+        scoreTextP4.text = p4Score.ToString();
+        timerText.gameObject.SetActive(false);
+        mancheText.gameObject.SetActive(false);
     }
 
 }
