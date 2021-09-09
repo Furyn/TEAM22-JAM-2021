@@ -11,8 +11,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float playerSpeed = 2.0f;
     [SerializeField]
-    private float gravityValue = -100f;
-    [SerializeField]
     private float rotationSpeed = 1440f;
     [SerializeField]
     private float TimeBetweenPausePress = 0.2f;
@@ -20,7 +18,6 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 movementInput = Vector2.zero;
     private Vector2 lookInput = Vector2.zero;
-    private bool isGrounded = false;
 
 
     private void Start()
@@ -72,54 +69,20 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!isGrounded)
-        {
-            Vector2 gravity = new Vector3(0, gravityValue, 0);
-            rb.AddForce(gravity, ForceMode.Acceleration);
-        }
 
         Vector3 move = new Vector3(movementInput.x, 0, movementInput.y);
         rb.velocity = move.normalized * playerSpeed;
 
-        Vector3 look = new Vector3(lookInput.x, 0, lookInput.y);
-
-        if (move != Vector3.zero && look == Vector3.zero)
+        if (move != Vector3.zero)
         {
             UnityEngine.Quaternion toRotation = UnityEngine.Quaternion.LookRotation(move, Vector3.up);
             transform.rotation = UnityEngine.Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
         }
 
-        else if (move != Vector3.zero && look != Vector3.zero)
-        {
-            UnityEngine.Quaternion toRotation = UnityEngine.Quaternion.LookRotation(look.normalized, Vector3.up);
-            transform.rotation = UnityEngine.Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
-        }
-
-        else if (move == Vector3.zero && look != Vector3.zero)
-        {
-            UnityEngine.Quaternion toRotation = UnityEngine.Quaternion.LookRotation(look.normalized, Vector3.up);
-            transform.rotation = UnityEngine.Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
-        }
         if (Animator)
         {
             Animator.SetFloat("Speed", (Mathf.Abs(rb.velocity.x) + Mathf.Abs(rb.velocity.z)));
         }
         
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Floor")
-        {
-            isGrounded = true;
-        }
-    }
-
-    void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.tag == "Floor")
-        {
-            isGrounded = false;
-        }
     }
 }
