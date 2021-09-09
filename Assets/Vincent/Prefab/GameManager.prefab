@@ -285,7 +285,10 @@ MonoBehaviour:
   nbMaxTrap: 10
   posParentTrap: {fileID: 1146164506}
   allNpcs:
-  - {fileID: 6859034972953342158, guid: 1a980616af0aa9d4e8effd54c552d166, type: 3}
+  - {fileID: 8390007117136685889, guid: c03c23b041eb9f2409c0ba2e11c8d9af, type: 3}
+  - {fileID: 5284818828499058381, guid: b22337829a6e08d45ad2e2b171f3f64a, type: 3}
+  - {fileID: 1156105909789155372, guid: dc4af5dccf5b38147b3870cc003fa350, type: 3}
+  - {fileID: 5830993798767445383, guid: c172b4757f19d7645a37f7648011d454, type: 3}
   nbNpc: 10
   posParentNPC: {fileID: 1909015197}
   allEvent:
