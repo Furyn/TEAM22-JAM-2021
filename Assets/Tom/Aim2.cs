@@ -33,6 +33,9 @@ public class Aim2: MonoBehaviour
 
     [HideInInspector] public bool imDead = false;
 
+    public GameObject Marker;
+    private GameObject targetMarker;
+
     [Header("NPC")]
     private GameObject NPC;
     private bool NPCPlayerFollow = false;
@@ -88,6 +91,8 @@ public class Aim2: MonoBehaviour
                 sight.transform.position = spawnPoint;
             }
 
+            GameObject.Destroy(targetMarker);
+
             shotOnCD = true;
             StartCoroutine(ShotCooldown(shotCooldown));
         }
@@ -130,7 +135,7 @@ public class Aim2: MonoBehaviour
                 }
             }
 
-            if (temporaryTarget != focusedTarget)
+            if (temporaryTarget != focusedTarget && !shotOnCD)
             {
                 if(focusedTarget != null && (focusedTarget.tag == "NPC" && focusedTarget.GetComponent<AIBehaviour>().sightsNb == 1) | (focusedTarget.tag == "player" && focusedTarget.GetComponent<PlayerController>().sightsNb == 1))
                 {
@@ -143,7 +148,7 @@ public class Aim2: MonoBehaviour
                         focusedTarget.GetComponent<PlayerController>().sightsNb += -1;
                     }
 
-                    focusedTarget.GetComponent<MeshRenderer>().material.color = Color.red;
+                    GameObject.Destroy(targetMarker);
                 }
 
                 if (temporaryTarget && temporaryTarget.tag == "NPC")
@@ -155,7 +160,8 @@ public class Aim2: MonoBehaviour
                     temporaryTarget.GetComponent<PlayerController>().sightsNb += 1;
                 }
 
-                temporaryTarget.GetComponent<MeshRenderer>().material.color = Color.green;
+
+                targetMarker = GameObject.Instantiate(Marker, new Vector3(temporaryTarget.transform.position.x, temporaryTarget.transform.position.y + 1, temporaryTarget.transform.position.z), temporaryTarget.transform.rotation, temporaryTarget.transform);
                 focusedTarget = temporaryTarget;
             }
         }
@@ -172,7 +178,7 @@ public class Aim2: MonoBehaviour
                     focusedTarget.GetComponent<PlayerController>().sightsNb += -1;
                 }
 
-                focusedTarget.GetComponent<MeshRenderer>().material.color = Color.red;
+                GameObject.Destroy(targetMarker);
                 focusedTarget = null;
             }
         }

@@ -98,7 +98,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5546225376046786599
 Transform:
   m_ObjectHideFlags: 0
@@ -5109,6 +5109,7 @@ MonoBehaviour:
   pNb: 2
   playerKillScore: 2
   imDead: 0
+  Marker: {fileID: 2823786739021281863, guid: 21396adfa5af9c844b5977c0397d5d57, type: 3}
   followTime: 5
   NPCHitDistance: 0
   nPCAttackCooldownTime: 0
