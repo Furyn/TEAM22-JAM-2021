@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    //Players score
+    //Players scores
     [HideInInspector] public int p1Score;
     [HideInInspector] public int p2Score;
     [HideInInspector] public int p3Score;

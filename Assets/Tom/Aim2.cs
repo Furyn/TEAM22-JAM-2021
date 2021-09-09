@@ -12,8 +12,10 @@ public class Aim2: MonoBehaviour
     [SerializeField] private float mooveSpeed;
     [SerializeField] private GameObject sight;
 
-    [SerializeField] private GameObject playerManager;
+    [HideInInspector] public int pNb = 1;
+    [SerializeField] private int playerKillScore;
     public Color sightColor;
+    private GameManager gameManager;
 
     public List<GameObject> targets;
     private GameObject focusedTarget;
@@ -32,6 +34,9 @@ public class Aim2: MonoBehaviour
         Sight sightScript = sight.GetComponent<Sight>();
         sightScript.makerScript = this;
 
+        sight.GetComponent<SpriteRenderer>().color = sightColor;
+
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
     public void OnLook(InputAction.CallbackContext context)
@@ -47,11 +52,17 @@ public class Aim2: MonoBehaviour
 
             if(focusedTarget.tag == "player")
             {
-
+                int score = (int)gameManager.GetType().GetField("p" + pNb + "Score").GetValue(gameManager);
+                gameManager.GetType().GetField("p" + pNb + "Score").SetValue(gameManager, score + playerKillScore);
+                score = (int)gameManager.GetType().GetField("p" + pNb + "Score").GetValue(gameManager);
+                Debug.Log("Player " + pNb + " score: " + score);
             }
             else if(focusedTarget.tag == "NPC")
             {
-
+                int score = (int)gameManager.GetType().GetField("p" + pNb + "Score").GetValue(gameManager);
+                gameManager.GetType().GetField("p" + pNb + "Score").SetValue(gameManager, score + playerKillScore);
+                score = (int)gameManager.GetType().GetField("p" + pNb + "Score").GetValue(gameManager);
+                Debug.Log("Player " + pNb + " score: " + score);
             }
 
             sight.transform.position = spawnPoint;

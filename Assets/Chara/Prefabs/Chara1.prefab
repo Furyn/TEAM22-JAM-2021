@@ -5101,8 +5101,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mooveSpeed: 1
   sight: {fileID: 120189586835448494, guid: 2deb4c758b0a0ac47b6e69630880af5c, type: 3}
-  playerManager: {fileID: 0}
-  sightColor: {r: 0, g: 0, b: 0, a: 0}
+  pNb: 2
+  playerKillScore: 2
+  sightColor: {r: 0.5058824, g: 0.98039216, b: 0.5372549, a: 0.6039216}
   targets: []
   cooldown: 2
   spawnPoint: {x: 0, y: 0, z: 0}
@@ -5162,6 +5163,7 @@ MonoBehaviour:
   playerSpeed: 3.5
   gravityValue: -100
   rotationSpeed: 360
+  TimeBetweenPausePress: 0.2
 --- !u!1 &4540973073777751974
 GameObject:
   m_ObjectHideFlags: 0
