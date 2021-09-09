@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector] public int sightsNb;
 
-    private bool imDead = false;
+    [HideInInspector]public bool imDead = false;
 
     private void Start()
     {

@@ -64,6 +64,9 @@ public class GameManager : MonoBehaviour
     private bool waitBeforeStart = false;
     private float timerBlackPanel = 0f;
     private bool firstManche = false;
+    private bool lastSurvival = false;
+    private float durationLastSurvival = 1f;
+    private float timerLastSurvival = 0f;
 
     private void Start()
     {
@@ -261,6 +264,26 @@ public class GameManager : MonoBehaviour
             {
                 StopCurrentManche();
             }
+            if (!lastSurvival)
+            {
+                allPlayer = GameObject.FindGameObjectsWithTag("Player");
+                int nbPlayerAlive = 0;
+
+                foreach (GameObject player in allPlayer)
+                {
+                    if (!player.GetComponent<PlayerController>().imDead)
+                    {
+                        nbPlayerAlive++;
+                    }
+                }
+
+                if (nbPlayerAlive <= 1)
+                {
+                    lastSurvival = true;
+                    timerLastSurvival = durationLastSurvival;
+                }
+            }
+            
         }
     
         if (waitBetweenManche)
@@ -273,6 +296,17 @@ public class GameManager : MonoBehaviour
                 StartNextManche();
             }
         }
+
+        if (lastSurvival)
+        {
+            timerLastSurvival -= Time.deltaTime;
+            if (timerLastSurvival <= 0f)
+            {
+                lastSurvival = false;
+                StopCurrentManche();
+            }
+        }
+
     }
 
     private void SetUpEvent()

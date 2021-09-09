@@ -4824,6 +4824,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 588440099, guid: 37e9841fd6aa7f64f90b2923c05810e7, type: 3}
+      propertyPath: maxPrefab
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 588440099, guid: 37e9841fd6aa7f64f90b2923c05810e7, type: 3}
+      propertyPath: minPrefab
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2968784245492297740, guid: 37e9841fd6aa7f64f90b2923c05810e7,
         type: 3}
       propertyPath: m_Name
