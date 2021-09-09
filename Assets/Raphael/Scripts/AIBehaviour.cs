@@ -21,6 +21,8 @@ public class AIBehaviour : MonoBehaviour
 
     private Vector3 targetPiege = new Vector3();
 
+    [HideInInspector] public int sightsNb;
+
     private void Start()
     {
         Animator = gameObject.GetComponent<Animator>();

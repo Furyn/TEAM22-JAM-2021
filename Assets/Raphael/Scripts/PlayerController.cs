@@ -19,6 +19,9 @@ public class PlayerController : MonoBehaviour
     private Vector2 movementInput = Vector2.zero;
     private Vector2 lookInput = Vector2.zero;
 
+    [HideInInspector] public int sightsNb;
+
+    private bool imDead = false;
 
     private void Start()
     {
@@ -69,20 +72,39 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-
-        Vector3 move = new Vector3(movementInput.x, 0, movementInput.y);
-        rb.velocity = move.normalized * playerSpeed;
-
-        if (move != Vector3.zero)
+        if (!imDead)
         {
-            UnityEngine.Quaternion toRotation = UnityEngine.Quaternion.LookRotation(move, Vector3.up);
-            transform.rotation = UnityEngine.Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+            Vector3 move = new Vector3(movementInput.x, 0, movementInput.y);
+            rb.velocity = move.normalized * playerSpeed;
+
+            if (move != Vector3.zero)
+            {
+                UnityEngine.Quaternion toRotation = UnityEngine.Quaternion.LookRotation(move, Vector3.up);
+                transform.rotation = UnityEngine.Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+            }
+
+            if (Animator)
+            {
+                Animator.SetFloat("Speed", (Mathf.Abs(rb.velocity.x) + Mathf.Abs(rb.velocity.z)));
+            }
         }
 
-        if (Animator)
-        {
-            Animator.SetFloat("Speed", (Mathf.Abs(rb.velocity.x) + Mathf.Abs(rb.velocity.z)));
-        }
         
+    }
+
+    public void DIE()
+    {
+        imDead = true;
+        GetComponent<Aim2>().imDead = true;
+
+        //play anim
+        WaitForDeathAnim(1 /*death anim time*/);
+    }
+
+    IEnumerator WaitForDeathAnim(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        transform.position = new Vector3(transform.position.x, transform.position.y - 50, transform.position.z);
     }
 }
