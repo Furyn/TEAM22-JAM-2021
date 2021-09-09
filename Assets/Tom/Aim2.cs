@@ -2,26 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class Aim2: MonoBehaviour
 {
     #region Variables
 
-    //Sight varibles
-    public List<GameObject> targets;
+    [Header("Sight")]
+    [HideInInspector] public List<GameObject> targets;
     private GameObject focusedTarget;
 
     private Vector2 lookInput = Vector2.zero;
 
-    [SerializeField] private float mooveSpeed;
-    public GameObject sight;
+    [SerializeField] private float sightMooveSpeed;
+    [HideInInspector] public GameObject sight;
 
     public Vector3 spawnPoint;
     [SerializeField] private bool sightPositionRestOnShot = true;
 
     public Color sightColor;
 
-    //GameManager variables
+    private bool shotOnCD = false;
+    [SerializeField] private float shotCooldown;
+
+    [Header("GameManager")]
     [HideInInspector] public int pNb = 1;
     [SerializeField] private int playerKillScore;
 
@@ -29,12 +33,7 @@ public class Aim2: MonoBehaviour
 
     [HideInInspector] public bool imDead = false;
 
-    //Shot variables
-    private bool shotOnCD = false;
-    [SerializeField] private float cooldown;
-
-
-    //NPC variables
+    [Header("NPC")]
     private GameObject NPC;
     private bool NPCPlayerFollow = false;
     [SerializeField] private float followTime;
@@ -90,7 +89,7 @@ public class Aim2: MonoBehaviour
             }
 
             shotOnCD = true;
-            StartCoroutine(ShotCooldown(cooldown));
+            StartCoroutine(ShotCooldown(shotCooldown));
         }
         else if (shotOnCD)
         {
@@ -105,7 +104,7 @@ public class Aim2: MonoBehaviour
 
         if (!shotOnCD && !imDead)
         {
-            sight.transform.position += lookDirection * 0.01f * mooveSpeed;
+            sight.transform.position += lookDirection * 0.01f * sightMooveSpeed;
         }
         #endregion
 
@@ -184,8 +183,8 @@ public class Aim2: MonoBehaviour
         {
             if(currentFollowTime < followTime)
             {
-                NPC.GetComponent<AIBehaviour>().SetDestination(transform.position);
-                currentFollowTime += Time.deltaTime;
+                NPC.GetComponent<AIBehaviour>().SetDestination(new Vector3(transform.position.x, 0, transform.position.z));
+                currentFollowTime += Time.deltaTime; 
                 if(Vector3.Distance(transform.position, NPC.transform.position) < NPCHitDistance)
                 {
                     if (!nPCAttackOnCD)
@@ -220,6 +219,7 @@ public class Aim2: MonoBehaviour
         yield return new WaitForSeconds(time);
 
         shotOnCD = false;
+        StopCoroutine(ShotCooldown(1));
     }
 
     IEnumerator NPCAttackCooldown(float time)
@@ -227,5 +227,6 @@ public class Aim2: MonoBehaviour
         yield return new WaitForSeconds(time);
 
         nPCAttackOnCD = false;
+        StopCoroutine(NPCAttackCooldown(1));
     }
 }
