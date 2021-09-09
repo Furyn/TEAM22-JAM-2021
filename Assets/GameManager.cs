@@ -10,7 +10,15 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int p3Score;
     [HideInInspector] public int p4Score;
 
-    [Header("Manche settings")]
+    [Header("General Settings")]
+    public float durationBeforeStart = 5f;
+    public float durationBlackPanel = 5f;
+    public GameObject panelFade = null;
+    public GameObject startButton = null;
+    private Image panelFadeImage = null;
+    private GameObject[] allPlayer = new GameObject[0];
+
+    [Header("Manche Settings")]
     public int current_manche = 0;
     public int manche = 3;
     public float durationManche = 30f;
@@ -22,7 +30,6 @@ public class GameManager : MonoBehaviour
     public string messageManche = "Manche : ";
     public PlayerInputManager playerInputManager = null;
 
-    private int nbPlayer = 0;
     private float timerManche = 0f;
     private bool mancheStarted = false;
     private float timerBetweenManche = 0f;
@@ -48,20 +55,41 @@ public class GameManager : MonoBehaviour
     private bool waitBetweenEvent = false;
     private float timerBeforeFirstEvent = 0f;
     private bool waitBeforeFirstEvent = true;
+    private float timerBeforeStart = 0f;
+    private bool waitBeforeStart = false;
+    private float timerBlackPanel = 0f;
 
     private void Start()
     {
         SetUpNextManche();
-        StartNextManche();
         SetUpEvent();
         timerBeforeFirstEvent = durationBeforeFirstEvent;
+        panelFadeImage = panelFade.GetComponent<Image>();
+        timerBlackPanel = durationBlackPanel;
     }
 
     private void Update()
     {
         UpdateManche();
 
-        if (waitBeforeFirstEvent)
+        if( waitBeforeStart )
+        {
+            timerBlackPanel -= Time.deltaTime;
+            if (timerBlackPanel <= 0f)
+            {
+                timerBeforeStart -= Time.deltaTime;
+                panelFadeImage.color = new Color(0, 0, 0, Mathf.InverseLerp(0, durationBeforeStart, timerBeforeStart));
+                if (timerBeforeStart <= 0f)
+                {
+                    waitBeforeStart = false;
+                    StartNextManche();
+                    panelFade.SetActive(false);
+                }
+                
+            }
+        }
+
+        if (waitBeforeFirstEvent && !waitBeforeStart)
         {
             timerBeforeFirstEvent -= Time.deltaTime;
             if (timerBeforeFirstEvent <= 0f)
@@ -103,13 +131,11 @@ public class GameManager : MonoBehaviour
             Instantiate(randNpc, new Vector3(randPosX, randNpc.transform.position.y, randPosZ), Quaternion.identity, posParentNPC);
         }
 
-        Debug.Log(nbPlayer);
-        for (int i = 0; i < nbPlayer; i++)
+        for (int i = 0; i < allPlayer.Length; i++)
         {
             float randPosX = Random.Range(startTerainPosition.position.x, endTerainPosition.position.x);
             float randPosZ = Random.Range(endTerainPosition.position.z, startTerainPosition.position.z);
-            Instantiate(playerInputManager.playerPrefab, new Vector3(randPosX, playerInputManager.playerPrefab.transform.position.y, randPosZ), Quaternion.identity, posParentNPC);
-            
+            allPlayer[i].transform.position = new Vector3(randPosX, startTerainPosition.position.y, randPosZ);
         }
 
     }
@@ -139,8 +165,7 @@ public class GameManager : MonoBehaviour
         timerBetweenManche = durationBetweenManche;
         waitBetweenManche = true;
         playerInputManager.DisableJoining();
-        GameObject[] allPlayer = GameObject.FindGameObjectsWithTag("Player");
-        nbPlayer = allPlayer.Length;
+        allPlayer = GameObject.FindGameObjectsWithTag("Player");
 
         for (int i = 0; i < posParentNPC.childCount; i++)
         {
@@ -154,7 +179,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < allPlayer.Length; i++)
         {
-            Destroy(allPlayer[i]);
+            allPlayer[i].transform.position = new Vector3(100,-100,100);
         }
 
     }
@@ -210,6 +235,17 @@ public class GameManager : MonoBehaviour
         {
             item.SetUpPostion(startTerainPosition, endTerainPosition);
         }
+    }
+
+    public void ButtonStart()
+    {
+
+        timerText.gameObject.SetActive(true);
+        mancheText.gameObject.SetActive(true);
+        waitBeforeStart = true;
+        timerBeforeStart = durationBeforeStart;
+        panelFade.SetActive(true);
+        startButton.SetActive(false);
     }
 
 }

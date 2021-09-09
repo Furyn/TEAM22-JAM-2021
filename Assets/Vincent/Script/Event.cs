@@ -32,7 +32,6 @@ public class Event : MonoBehaviour
     {
         if (eventLaunch)
         {
-            Debug.Log(timer);
             timer -= Time.deltaTime;
             if (timer <= 0f)
             {
