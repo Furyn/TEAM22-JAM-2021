@@ -22,7 +22,7 @@ public class Aim2: MonoBehaviour
 
     public Color sightColor;
 
-    private bool shotOnCD = false;
+    [HideInInspector]public bool shotOnCD = false;
     [SerializeField] private float shotCooldown;
 
     [Header("GameManager")]
