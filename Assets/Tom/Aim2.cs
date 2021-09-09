@@ -44,7 +44,7 @@ public class Aim2: MonoBehaviour
     [SerializeField] private float NPCHitDistance;
     [SerializeField] private float nPCAttackCooldownTime;
     private bool nPCAttackOnCD;
-    [SerializeField] private ParticleSystem blood;
+    [SerializeField] private GameObject blood;
     #endregion
 
     private void Start()
@@ -166,9 +166,11 @@ public class Aim2: MonoBehaviour
                     temporaryTarget.GetComponent<PlayerController>().sightsNb += 1;
                 }
 
-
-                targetMarker = GameObject.Instantiate(Marker, new Vector3(temporaryTarget.transform.position.x, temporaryTarget.transform.position.y + 1, temporaryTarget.transform.position.z), temporaryTarget.transform.rotation, temporaryTarget.transform);
-                focusedTarget = temporaryTarget;
+                if (temporaryTarget)
+                {
+                    targetMarker = GameObject.Instantiate(Marker, new Vector3(temporaryTarget.transform.position.x, temporaryTarget.transform.position.y + 1, temporaryTarget.transform.position.z), temporaryTarget.transform.rotation, temporaryTarget.transform);
+                    focusedTarget = temporaryTarget;
+                }
             }
         }
         else
@@ -199,13 +201,12 @@ public class Aim2: MonoBehaviour
                 currentFollowTime += Time.deltaTime; 
                 if(Vector3.Distance(transform.position, NPC.transform.position) < NPCHitDistance)
                 {
-                    if (!nPCAttackOnCD)
-                    {
-                        var emission = blood.emission;
-                        emission.enabled = true;
-                        nPCAttackOnCD = true;
-                        NPCAttackCooldown(nPCAttackCooldownTime);
-                    }
+                    Debug.Log("Punch"!);
+                    blood.SetActive(true);
+                    NPCPlayerFollow = false;
+                    NPC.GetComponent<AIBehaviour>().SetDestination(Vector3.zero);
+                    currentFollowTime = 0;
+                    NPC = null;
                 }
             }
             else
@@ -214,6 +215,7 @@ public class Aim2: MonoBehaviour
                 NPC.GetComponent<AIBehaviour>().SetDestination(Vector3.zero);
                 currentFollowTime = 0;
                 NPC = null;
+
             }
 
         }

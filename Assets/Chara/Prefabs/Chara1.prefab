@@ -324,9 +324,9 @@ MonoBehaviour:
   imDead: 0
   Marker: {fileID: 2823786739021281863, guid: 21396adfa5af9c844b5977c0397d5d57, type: 3}
   followTime: 5
-  NPCHitDistance: 0
-  nPCAttackCooldownTime: 0
-  blood: {fileID: 0}
+  NPCHitDistance: 1
+  nPCAttackCooldownTime: 4
+  blood: {fileID: 1157241756854735642}
 --- !u!23 &7371920005130570393
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -857,8 +857,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blood
       objectReference: {fileID: 0}
+    - target: {fileID: 5931454805791205618, guid: dab93ac6354be334d8244da2a85cffc1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dab93ac6354be334d8244da2a85cffc1, type: 3}
+--- !u!1 &1157241756854735642 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5931454805791205618, guid: dab93ac6354be334d8244da2a85cffc1,
+    type: 3}
+  m_PrefabInstance: {fileID: 4782712333965507560}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5546225376046786599 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1056020578607174607, guid: dab93ac6354be334d8244da2a85cffc1,
