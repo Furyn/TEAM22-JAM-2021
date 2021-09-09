@@ -1,5 +1,5 @@
 {
-    "name": "PlayerControls",
+    "name": "PlayerControls 1",
     "maps": [
         {
             "name": "Player",
@@ -26,6 +26,14 @@
                     "type": "PassThrough",
                     "id": "f6cb9f5f-ba02-466b-bccc-f9fff2f33c42",
                     "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "807d45b2-5f18-4e18-9653-ddb41125c654",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 }
@@ -184,6 +192,28 @@
                     "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "fdc82ba3-2540-4638-b7d5-81ed9cc15f1d",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7d7ceba6-158d-4a61-9eaf-90e7f4cc2fa7",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody rb;
-
     private Animator Animator;
 
     [SerializeField]
@@ -15,6 +14,9 @@ public class PlayerController : MonoBehaviour
     private float gravityValue = -100f;
     [SerializeField]
     private float rotationSpeed = 1440f;
+    [SerializeField]
+    private float TimeBetweenPausePress = 0.2f;
+    private bool pauseCooldown = false;
 
     private Vector2 movementInput = Vector2.zero;
     private Vector2 lookInput = Vector2.zero;
@@ -35,6 +37,37 @@ public class PlayerController : MonoBehaviour
     public void OnLook(InputAction.CallbackContext context)
     {
         lookInput = context.ReadValue<Vector2>();
+    }
+
+    public void OnPause()
+    {
+        if (!pauseCooldown)
+        {
+            GameObject canvas = GameObject.Find("Canvas");
+            GameObject pausemenu = canvas.transform.GetChild(0).gameObject;
+
+            if (Time.timeScale == 0f && pausemenu.activeSelf)
+            {
+                pausemenu.SetActive(false);
+                Time.timeScale = 1f;
+            }
+
+            else if (Time.timeScale == 1f && !pausemenu.activeSelf)
+            {
+                Time.timeScale = 0f;
+                pausemenu.SetActive(true);
+            }
+
+            pauseCooldown = true;
+            StartCoroutine(PauseCooldown());
+        }
+        
+    }
+
+    IEnumerator PauseCooldown()
+    {
+        yield return new WaitForSecondsRealtime(TimeBetweenPausePress);
+        pauseCooldown = false;
     }
 
     void Update()

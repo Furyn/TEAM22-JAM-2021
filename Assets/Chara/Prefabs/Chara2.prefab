@@ -313,6 +313,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: f6cb9f5f-ba02-466b-bccc-f9fff2f33c42
     m_ActionName: Player/Look[/DualShock4GamepadHID/rightStick,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 855632126474394766}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnPause
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 807d45b2-5f18-4e18-9653-ddb41125c654
+    m_ActionName: Player/Pause[/Keyboard/escape,/DualShock4GamepadHID/start]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Controller
   m_DefaultActionMap: Player
@@ -349,6 +365,7 @@ MonoBehaviour:
   playerSpeed: 3.5
   gravityValue: -100
   rotationSpeed: 360
+  TimeBetweenPausePress: 0.2
 --- !u!114 &6174093578922086836
 MonoBehaviour:
   m_ObjectHideFlags: 0

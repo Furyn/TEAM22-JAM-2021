@@ -94,10 +94,10 @@ GameObject:
   - component: {fileID: 7588317312043466813}
   - component: {fileID: 5564684136191163244}
   - component: {fileID: 4125715259257101974}
-  - component: {fileID: 6377426324951764115}
   - component: {fileID: 2696260222527650166}
   - component: {fileID: 4633617640165436223}
   - component: {fileID: 7371920005130570393}
+  - component: {fileID: 1194724328355456780}
   m_Layer: 0
   m_Name: Chara1
   m_TagString: Player
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6377426324951764115}
+      - m_Target: {fileID: 1194724328355456780}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
@@ -218,6 +218,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: f6cb9f5f-ba02-466b-bccc-f9fff2f33c42
     m_ActionName: Player/Look[/DualShock4GamepadHID/rightStick,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1194724328355456780}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnPause
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2cf578f4-d2de-4ce7-82d3-c7d3de385fba
+    m_ActionName: Player/Pause[/Keyboard/escape,/DualShock4GamepadHID/start]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Controller
   m_DefaultActionMap: Player
@@ -253,21 +269,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
---- !u!114 &6377426324951764115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2323276840801974191}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ef82ac6e82dfc5439db8883a1a88683, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerSpeed: 3.5
-  gravityValue: -100
-  rotationSpeed: 360
 --- !u!114 &2696260222527650166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,6 +339,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1194724328355456780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2323276840801974191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ef82ac6e82dfc5439db8883a1a88683, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpeed: 3.5
+  gravityValue: -100
+  rotationSpeed: 360
 --- !u!1 &4540973073777751974
 GameObject:
   m_ObjectHideFlags: 0
