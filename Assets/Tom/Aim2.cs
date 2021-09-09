@@ -33,7 +33,7 @@ public class Aim2: MonoBehaviour
 
     [HideInInspector] public bool imDead = false;
 
-    public GameObject Marker;
+    [SerializeField] private GameObject Marker;
     private GameObject targetMarker;
 
     [Header("NPC")]
@@ -44,6 +44,7 @@ public class Aim2: MonoBehaviour
     [SerializeField] private float NPCHitDistance;
     [SerializeField] private float nPCAttackCooldownTime;
     private bool nPCAttackOnCD;
+    [SerializeField] private ParticleSystem blood;
     #endregion
 
     private void Start()
@@ -195,7 +196,8 @@ public class Aim2: MonoBehaviour
                 {
                     if (!nPCAttackOnCD)
                     {
-                        //HitPlayer
+                        var emission = blood.emission;
+                        emission.enabled = true;
                         nPCAttackOnCD = true;
                         NPCAttackCooldown(nPCAttackCooldownTime);
                     }
@@ -220,7 +222,7 @@ public class Aim2: MonoBehaviour
         #endregion
     }
 
-    IEnumerator ShotCooldown(float time)
+    private IEnumerator ShotCooldown(float time)
     {
         yield return new WaitForSeconds(time);
 
@@ -228,7 +230,7 @@ public class Aim2: MonoBehaviour
         StopCoroutine(ShotCooldown(1));
     }
 
-    IEnumerator NPCAttackCooldown(float time)
+    private IEnumerator NPCAttackCooldown(float time)
     {
         yield return new WaitForSeconds(time);
 
