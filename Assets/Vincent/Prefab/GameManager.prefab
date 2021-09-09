@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Event Name
-  eventLaunch: 0
   timerDuration: 10
+  eventLaunch: 0
 --- !u!1 &1146164505
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,9 +150,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: EventIA
-  eventLaunch: 0
   timerDuration: 10
-  allNPC: {fileID: 0}
+  eventLaunch: 0
+  allPrefabPiege:
+  - {fileID: 2080748912302422828, guid: 2e6620d2a46f6954cad497575ee67abe, type: 3}
+  minPrefab: 2
+  maxPrefab: 10
 --- !u!1 &2968784244550184198
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,6 +265,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8049e695edbb97449a6445fca5388151, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  p1Score: 0
+  p2Score: 0
+  p3Score: 0
+  p4Score: 0
   current_manche: 0
   manche: 3
   durationManche: 30
@@ -283,5 +290,5 @@ MonoBehaviour:
   posParentNPC: {fileID: 1909015197}
   allEvent:
   - {fileID: 2016634058}
-  - {fileID: 588440099}
-  durationBetweenEvent: 5
+  durationBetweenEvent: 50
+  durationBeforeFirstEvent: 10

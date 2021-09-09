@@ -100,9 +100,11 @@ public class PlayerController : MonoBehaviour
             UnityEngine.Quaternion toRotation = UnityEngine.Quaternion.LookRotation(look.normalized, Vector3.up);
             transform.rotation = UnityEngine.Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
         }
-
-        Animator.SetFloat("Speed", (Mathf.Abs(rb.velocity.x) + Mathf.Abs(rb.velocity.z)));
-
+        if (Animator)
+        {
+            Animator.SetFloat("Speed", (Mathf.Abs(rb.velocity.x) + Mathf.Abs(rb.velocity.z)));
+        }
+        
     }
 
     void OnCollisionEnter(Collision collision)

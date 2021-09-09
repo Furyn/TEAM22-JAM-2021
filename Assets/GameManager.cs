@@ -42,22 +42,35 @@ public class GameManager : MonoBehaviour
     [Header("Event Settigns")]
     public Event[] allEvent = null;
     public float durationBetweenEvent = 5f;
+    public float durationBeforeFirstEvent = 5f;
 
     private float timerBetweenEvent = 0f;
     private bool waitBetweenEvent = false;
+    private float timerBeforeFirstEvent = 0f;
+    private bool waitBeforeFirstEvent = true;
 
     private void Start()
     {
         SetUpNextManche();
         StartNextManche();
-        LaunchEventAlea();
         SetUpEvent();
+        timerBeforeFirstEvent = durationBeforeFirstEvent;
     }
 
     private void Update()
     {
         UpdateManche();
-    
+
+        if (waitBeforeFirstEvent)
+        {
+            timerBeforeFirstEvent -= Time.deltaTime;
+            if (timerBeforeFirstEvent <= 0f)
+            {
+                waitBeforeFirstEvent = false;
+                LaunchEventAlea();
+            }
+        }
+
         if (waitBetweenEvent)
         {
             timerBetweenEvent -= Time.deltaTime;
