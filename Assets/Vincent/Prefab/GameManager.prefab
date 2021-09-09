@@ -277,6 +277,11 @@ MonoBehaviour:
   durationBlackPanel: 5
   panelFade: {fileID: 0}
   startButton: {fileID: 0}
+  screenFinal: {fileID: 0}
+  scoreTextP1: {fileID: 0}
+  scoreTextP2: {fileID: 0}
+  scoreTextP3: {fileID: 0}
+  scoreTextP4: {fileID: 0}
   current_manche: 0
   manche: 3
   durationManche: 30

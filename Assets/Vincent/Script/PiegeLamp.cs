@@ -5,18 +5,20 @@ using UnityEngine;
 public class PiegeLamp : MonoBehaviour
 {
 
-    private List<GameObject> allPlayer = new List<GameObject>(); 
+    private List<GameObject> allPlayer = new List<GameObject>();
+    [SerializeField] private GameObject marker = null;
+
+    Dictionary<GameObject, GameObject> allPlayer_marker = new Dictionary<GameObject, GameObject>();
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            AIBehaviour ia = other.GetComponent<AIBehaviour>();
 
-            if (ia)
-            {
-                allPlayer.Add(other.gameObject);
-            }
+            GameObject marker_ins = GameObject.Instantiate(marker, new Vector3(other.transform.position.x, other.transform.position.y + 1, other.transform.position.z), other.transform.rotation, other.transform);
+            allPlayer.Add(other.gameObject);
+            allPlayer_marker.Add(other.gameObject, marker_ins);
+            
         }
     }
 
@@ -24,6 +26,9 @@ public class PiegeLamp : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            Destroy(allPlayer_marker[other.gameObject]);
+
+            allPlayer_marker.Remove(other.gameObject);
             allPlayer.Remove(other.gameObject);
         }
     }
@@ -32,7 +37,9 @@ public class PiegeLamp : MonoBehaviour
     {
         foreach (GameObject player in allPlayer)
         {
-            
+            Destroy(allPlayer_marker[player]);
+
+            allPlayer_marker.Remove(player);
         }
     }
 
