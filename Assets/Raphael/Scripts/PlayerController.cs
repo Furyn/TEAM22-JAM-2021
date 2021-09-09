@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector] public int sightsNb;
 
-    private bool imDead = false;
+    [HideInInspector]public bool imDead = false;
 
     private void Start()
     {
@@ -136,5 +136,7 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         transform.position = new Vector3(transform.position.x, transform.position.y - 50, transform.position.z);
+
+        StopCoroutine(WaitForDeathAnim(1));
     }
 }

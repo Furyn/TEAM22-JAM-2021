@@ -43,9 +43,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7f6f6448a34a194e82e28ea86ec730b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Event Name
+  Name: Event Lamp
   timerDuration: 10
   eventLaunch: 0
+  allPrefabPiege:
+  - {fileID: 2594520014368909151, guid: d3bd3b2788dcb3e4da3c6ec09600481d, type: 3}
+  minPrefab: 2
+  maxPrefab: 10
 --- !u!1 &1146164505
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,7 +232,7 @@ GameObject:
   - component: {fileID: 2968784245492297743}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -269,6 +273,15 @@ MonoBehaviour:
   p2Score: 0
   p3Score: 0
   p4Score: 0
+  durationBeforeStart: 5
+  durationBlackPanel: 5
+  panelFade: {fileID: 0}
+  startButton: {fileID: 0}
+  screenFinal: {fileID: 0}
+  scoreTextP1: {fileID: 0}
+  scoreTextP2: {fileID: 0}
+  scoreTextP3: {fileID: 0}
+  scoreTextP4: {fileID: 0}
   current_manche: 0
   manche: 3
   durationManche: 30
@@ -293,5 +306,6 @@ MonoBehaviour:
   posParentNPC: {fileID: 1909015197}
   allEvent:
   - {fileID: 2016634058}
+  - {fileID: 588440099}
   durationBetweenEvent: 50
   durationBeforeFirstEvent: 10

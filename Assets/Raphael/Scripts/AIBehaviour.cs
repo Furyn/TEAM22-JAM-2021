@@ -19,7 +19,7 @@ public class AIBehaviour : MonoBehaviour
     private float posX;
     private float posZ;
 
-    private Vector3 targetPiege = new Vector3();
+    private Vector3 newDestination = new Vector3();
 
     [HideInInspector] public int sightsNb;
 
@@ -36,13 +36,17 @@ public class AIBehaviour : MonoBehaviour
         {
             Animator.SetFloat("Speed", (Mathf.Abs(navAgent.velocity.x) + Mathf.Abs(navAgent.velocity.z)));
         }
-        //Animator.SetFloat("Speed", );
+        if (timeUntilNextPos > 0f && newDestination != Vector3.zero)
+        {
+            StopCoroutine(NextPos());
+            StartCoroutine(NextPos());
+        }
     }
 
     private IEnumerator NextPos()
     {
         Vector3 destination;
-        if (targetPiege == Vector3.zero)
+        if (newDestination == Vector3.zero)
         {
             timeUntilNextPos = Random.Range(timeMin, timeMax);
             posX = Random.Range(-10.0f, 10.0f);
@@ -51,7 +55,8 @@ public class AIBehaviour : MonoBehaviour
         }
         else
         {
-            destination = targetPiege;
+            destination = newDestination;
+            timeUntilNextPos = 0f;
         }
 
         agent.SetDestination(destination);
@@ -62,6 +67,6 @@ public class AIBehaviour : MonoBehaviour
 
     public void SetDestination(Vector3 position)
     {
-        targetPiege = position;
+        newDestination = position;
     }
 }
