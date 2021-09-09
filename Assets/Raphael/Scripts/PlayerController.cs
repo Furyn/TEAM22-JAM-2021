@@ -95,9 +95,24 @@ public class PlayerController : MonoBehaviour
     public void DIE()
     {
         imDead = true;
-        GetComponent<Aim2>().imDead = true;
+
+        Aim2 aimScript = GetComponent<Aim2>();
+
+        aimScript.imDead = true;
+        aimScript.sight.transform.position = new Vector3(transform.position.x, transform.position.y - 50, transform.position.z);
+
         Animator.SetTrigger("Death");
         StartCoroutine(WaitForDeathAnim(3));
+    }
+
+    public void HeroesNeverDie()
+    {
+        imDead = false;
+
+        Aim2 aimScript = GetComponent<Aim2>();
+
+        aimScript.imDead = false;
+        aimScript.sight.transform.position = aimScript.spawnPoint;
     }
 
     IEnumerator WaitForDeathAnim(float time)
