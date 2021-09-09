@@ -315,7 +315,7 @@ MonoBehaviour:
   mooveSpeed: 1
   sight: {fileID: 120189586835448494, guid: 2deb4c758b0a0ac47b6e69630880af5c, type: 3}
   spawnPoint: {x: 0, y: 0, z: 0}
-  sightColor: {r: 0.5019608, g: 0.25265244, b: 0, a: 1}
+  sightColor: {r: 1, g: 0.6533019, b: 0.3066038, a: 0.6039216}
   pNb: 3
   playerKillScore: 2
   imDead: 0
