@@ -235,6 +235,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 2cf578f4-d2de-4ce7-82d3-c7d3de385fba
     m_ActionName: Player/Pause[/Keyboard/escape,/DualShock4GamepadHID/start]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1194724328355456780}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: StartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: cd2a3f40-a3ef-4439-98ef-8e1bbdb6013b
+    m_ActionName: Player/Start Game[/DualShock4GamepadHID/buttonEast,/Keyboard/b]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Controller
   m_DefaultActionMap: Player
@@ -301,6 +317,7 @@ MonoBehaviour:
   spawnPoint: {x: 0, y: 0, z: 0}
   sightPositionRestOnShot: 0
   sightColor: {r: 0.5058824, g: 0.98039216, b: 0.5372549, a: 0.6039216}
+  shotOnCD: 0
   shotCooldown: 3
   pNb: 2
   playerKillScore: 2
@@ -309,6 +326,7 @@ MonoBehaviour:
   followTime: 5
   NPCHitDistance: 0
   nPCAttackCooldownTime: 0
+  blood: {fileID: 0}
 --- !u!23 &7371920005130570393
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -366,6 +384,7 @@ MonoBehaviour:
   rotationSpeed: 360
   TimeBetweenPausePress: 0.2
   sightsNb: 0
+  imDead: 0
 --- !u!1 &4540973073777751974
 GameObject:
   m_ObjectHideFlags: 0
