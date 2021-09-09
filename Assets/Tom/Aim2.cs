@@ -100,6 +100,11 @@ public class Aim2: MonoBehaviour
 
     void Update()
     {
+
+        if (Time.deltaTime == 0)
+        {
+            return;
+        }
         #region Sight movement
         Vector3 lookDirection = new Vector3(lookInput.x, 0, lookInput.y);
 
