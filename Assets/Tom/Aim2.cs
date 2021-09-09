@@ -14,7 +14,7 @@ public class Aim2: MonoBehaviour
     private Vector2 lookInput = Vector2.zero;
 
     [SerializeField] private float mooveSpeed;
-    [SerializeField] private GameObject sight;
+    public GameObject sight;
 
     public Vector3 spawnPoint;
 

@@ -100,6 +100,16 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(WaitForDeathAnim(3));
     }
 
+    public void HeroesNeverDie()
+    {
+        imDead = false;
+
+        Aim2 aimScript = GetComponent<Aim2>();
+
+        aimScript.imDead = false;
+        aimScript.sight.transform.position = aimScript.spawnPoint;
+    }
+
     IEnumerator WaitForDeathAnim(float time)
     {
         yield return new WaitForSeconds(time);
