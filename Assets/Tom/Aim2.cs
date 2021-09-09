@@ -17,6 +17,7 @@ public class Aim2: MonoBehaviour
     public GameObject sight;
 
     public Vector3 spawnPoint;
+    [SerializeField] private bool sightPositionRestOnShot = true;
 
     public Color sightColor;
 
@@ -83,7 +84,10 @@ public class Aim2: MonoBehaviour
                 NPC = focusedTarget;
             }
 
-            sight.transform.position = spawnPoint;
+            if (sightPositionRestOnShot)
+            {
+                sight.transform.position = spawnPoint;
+            }
 
             shotOnCD = true;
             StartCoroutine(ShotCooldown(cooldown));
