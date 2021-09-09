@@ -36,7 +36,11 @@ public class AIBehaviour : MonoBehaviour
         {
             Animator.SetFloat("Speed", (Mathf.Abs(navAgent.velocity.x) + Mathf.Abs(navAgent.velocity.z)));
         }
-        //Animator.SetFloat("Speed", );
+        if (timeUntilNextPos > 0f && newDestination != Vector3.zero)
+        {
+            StopCoroutine(NextPos());
+            StartCoroutine(NextPos());
+        }
     }
 
     private IEnumerator NextPos()
