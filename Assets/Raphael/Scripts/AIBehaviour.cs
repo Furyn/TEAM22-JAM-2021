@@ -22,11 +22,15 @@ public class AIBehaviour : MonoBehaviour
     private Vector3 newDestination = new Vector3();
 
     [HideInInspector] public int sightsNb;
+    [HideInInspector] public GameObject marker;
+    [SerializeField] private GameObject markerPrefab;
 
     private void Start()
     {
         Animator = gameObject.GetComponent<Animator>();
         navAgent = gameObject.GetComponent<NavMeshAgent>();
+        marker = GameObject.Instantiate(markerPrefab, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), transform.rotation, transform);
+        marker.SetActive(false);
         StartCoroutine(NextPos());
     }
 

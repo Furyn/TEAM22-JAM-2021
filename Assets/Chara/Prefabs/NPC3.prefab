@@ -179,6 +179,10 @@ MonoBehaviour:
   agent: {fileID: 8424016382344730392}
   timeMin: 1
   timeMax: 5
+  sightsNb: 0
+  marker: {fileID: 0}
+  markerPrefab: {fileID: 2823786739021281863, guid: 21396adfa5af9c844b5977c0397d5d57,
+    type: 3}
 --- !u!54 &5998396563337378063
 Rigidbody:
   m_ObjectHideFlags: 0

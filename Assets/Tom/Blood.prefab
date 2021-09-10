@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1056020578607174607}
   - component: {fileID: 1149914127364514189}
   - component: {fileID: 304524008703364588}
-  - component: {fileID: 4136941281047867210}
   m_Layer: 0
   m_Name: Blood
   m_TagString: Untagged
@@ -50,7 +49,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -4807,19 +4806,6 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &4136941281047867210
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5931454805791205618}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a936b34fc61b733488ef9d6a7cf1d9af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bleedingTime: 3
 --- !u!1 &6077864484961064344
 GameObject:
   m_ObjectHideFlags: 0
@@ -4868,7 +4854,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1

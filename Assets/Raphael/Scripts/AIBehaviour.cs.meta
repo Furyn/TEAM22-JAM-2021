@@ -3,7 +3,11 @@ guid: ffb3eb6606371b14f8a1a86ee7a16a4d
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - agent: {instanceID: 0}
+  - marker: {instanceID: 0}
+  - markerPrefab: {fileID: 2823786739021281863, guid: 21396adfa5af9c844b5977c0397d5d57,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
