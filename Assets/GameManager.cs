@@ -108,6 +108,10 @@ public class GameManager : MonoBehaviour
             //audio
             if (!audioManager.IsPlaying("RoundMusic"))
             {
+                if (audioManager.IsPlaying("MainMusic"))
+                {
+                    audioManager.Stop("MainMusic");
+                }
                 audioManager.Play("RoundMusic");
             }
         }
@@ -278,7 +282,7 @@ public class GameManager : MonoBehaviour
             timerManche -= Time.deltaTime;
             
             //audio
-            if(timerManche < 10f && !audioManager.IsPlaying("TimerCountdown"))
+            if(timerManche <= 10f && !audioManager.IsPlaying("TimerCountdown"))
             {
                 audioManager.Play("TimerCountdown");
             }
@@ -286,6 +290,11 @@ public class GameManager : MonoBehaviour
             if (timerManche <= 0f)
             {
                 StopCurrentManche();
+
+                if (!audioManager.IsPlaying("RoundEnd"))
+                {
+                    audioManager.Play("RoundEnd");
+                }
             }
             if (!lastSurvival)
             {
@@ -361,6 +370,10 @@ public class GameManager : MonoBehaviour
     private void ShowFinalScreen()
     {
         //audio
+        if (audioManager.IsPlaying("RoundMusic"))
+        {
+            audioManager.Stop("RoundMusic");
+        }
         audioManager.Play("WinMusic");
 
         liveScore.SetActive(false);
