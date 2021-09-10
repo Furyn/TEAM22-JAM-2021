@@ -507,7 +507,7 @@ MonoBehaviour:
   imDead: 0
   Marker: {fileID: 2823786739021281863, guid: 21396adfa5af9c844b5977c0397d5d57, type: 3}
   followTime: 5
-  NPCHitDistance: 1
+  NPCHitDistance: 2
   nPCAttackCooldownTime: 4
   blood: {fileID: 1157241756854735642, guid: 6aac61bd3a4915449966cfd59d44df33, type: 3}
 --- !u!23 &6073040297572495715
