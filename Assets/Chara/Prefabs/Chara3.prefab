@@ -339,7 +339,7 @@ MonoBehaviour:
   sightColor: {r: 0.98039216, g: 0.8255291, b: 0.5058824, a: 0.6039216}
   shotOnCD: 0
   shotCooldown: 3
-  pNb: 2
+  pNb: 3
   playerKillScore: 2
   imDead: 0
   Marker: {fileID: 2823786739021281863, guid: 21396adfa5af9c844b5977c0397d5d57, type: 3}

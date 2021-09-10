@@ -26,7 +26,7 @@ public class Aim2: MonoBehaviour
     [SerializeField] private float shotCooldown;
 
     [Header("GameManager")]
-    [HideInInspector] public int pNb = 1;
+    [SerializeField] private int pNb;
     [SerializeField] private int playerKillScore;
 
     private GameManager gameManager;
