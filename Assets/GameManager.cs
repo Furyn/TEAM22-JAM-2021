@@ -84,6 +84,7 @@ public class GameManager : MonoBehaviour
         panelFadeImage = panelFade.GetComponent<Image>();
         timerBlackPanel = durationBlackPanel;
 
+        //audio
         audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
     }
 
@@ -102,6 +103,12 @@ public class GameManager : MonoBehaviour
                 {
                     aim.shotOnCD = true;
                 }
+            }
+
+            //audio
+            if (!audioManager.IsPlaying("RoundMusic"))
+            {
+                audioManager.Play("RoundMusic");
             }
         }
         else if(firstManche)
@@ -269,11 +276,13 @@ public class GameManager : MonoBehaviour
         if (mancheStarted)
         {
             timerManche -= Time.deltaTime;
-    
+            
+            //audio
             if(timerManche < 10f && !audioManager.IsPlaying("TimerCountdown"))
             {
                 audioManager.Play("TimerCountdown");
             }
+
             if (timerManche <= 0f)
             {
                 StopCurrentManche();
@@ -338,7 +347,9 @@ public class GameManager : MonoBehaviour
 
     public void ButtonStart()
     {
+        //audio
         audioManager.Play("Button1");
+
         timerText.gameObject.SetActive(true);
         mancheText.gameObject.SetActive(true);
         waitBeforeStart = true;
@@ -349,7 +360,9 @@ public class GameManager : MonoBehaviour
 
     private void ShowFinalScreen()
     {
+        //audio
         audioManager.Play("WinMusic");
+
         liveScore.SetActive(false);
         screenFinal.SetActive(true);
         scoreTextP1.text = p1Score.ToString();
