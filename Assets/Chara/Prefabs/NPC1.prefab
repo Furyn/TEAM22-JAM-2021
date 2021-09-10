@@ -584,6 +584,10 @@ MonoBehaviour:
   agent: {fileID: 4812810003964289679}
   timeMin: 1
   timeMax: 5
+  maxPosX: 44.9
+  minPosX: -38.81
+  maxPosY: 19
+  minPosY: -27.81
   sightsNb: 0
   marker: {fileID: 0}
   markerPrefab: {fileID: 2823786739021281863, guid: 21396adfa5af9c844b5977c0397d5d57,

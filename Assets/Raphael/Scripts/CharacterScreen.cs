@@ -19,6 +19,7 @@ public class CharacterScreen : MonoBehaviour
     private GameObject playerManager;
     public int playerCount;
     public Text instructions;
+    public GameManager gm = null;
 
     void Start()
     {
@@ -74,6 +75,7 @@ public class CharacterScreen : MonoBehaviour
 
     public void OnPlay()
     {
+        gm.ButtonStart();
         startButton.SetActive(true);
         characterScreen.SetActive(false);
         Time.timeScale = 1f;
