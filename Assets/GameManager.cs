@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int p3Score;
     [HideInInspector] public int p4Score;
 
+    //Audio
+    private AudioManager audioManager;
+
     [Header("General Settings")]
     public float durationBeforeStart = 5f;
     public float durationBlackPanel = 5f;
@@ -80,6 +83,9 @@ public class GameManager : MonoBehaviour
         timerBeforeFirstEvent = durationBeforeFirstEvent;
         panelFadeImage = panelFade.GetComponent<Image>();
         timerBlackPanel = durationBlackPanel;
+
+        //audio
+        audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
     }
 
     private void Update()
@@ -97,6 +103,16 @@ public class GameManager : MonoBehaviour
                 {
                     aim.shotOnCD = true;
                 }
+            }
+
+            //audio
+            if (!audioManager.IsPlaying("RoundMusic"))
+            {
+                if (audioManager.IsPlaying("MainMusic"))
+                {
+                    audioManager.Stop("MainMusic");
+                }
+                audioManager.Play("RoundMusic");
             }
         }
         else if(firstManche)
@@ -264,10 +280,21 @@ public class GameManager : MonoBehaviour
         if (mancheStarted)
         {
             timerManche -= Time.deltaTime;
-    
+            
+            //audio
+            if(timerManche <= 10f && !audioManager.IsPlaying("TimerCountdown"))
+            {
+                audioManager.Play("TimerCountdown");
+            }
+
             if (timerManche <= 0f)
             {
                 StopCurrentManche();
+
+                if (!audioManager.IsPlaying("RoundEnd"))
+                {
+                    audioManager.Play("RoundEnd");
+                }
             }
             if (!lastSurvival)
             {
@@ -329,6 +356,9 @@ public class GameManager : MonoBehaviour
 
     public void ButtonStart()
     {
+        //audio
+        audioManager.Play("Button1");
+
         timerText.gameObject.SetActive(true);
         mancheText.gameObject.SetActive(true);
         waitBeforeStart = true;
@@ -339,6 +369,13 @@ public class GameManager : MonoBehaviour
 
     private void ShowFinalScreen()
     {
+        //audio
+        if (audioManager.IsPlaying("RoundMusic"))
+        {
+            audioManager.Stop("RoundMusic");
+        }
+        audioManager.Play("WinMusic");
+
         liveScore.SetActive(false);
         screenFinal.SetActive(true);
         scoreTextP1.text = p1Score.ToString();

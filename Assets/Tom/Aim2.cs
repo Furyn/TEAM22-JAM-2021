@@ -26,15 +26,16 @@ public class Aim2: MonoBehaviour
     [SerializeField] private float shotCooldown;
 
     [Header("GameManager")]
-    [HideInInspector] public int pNb = 1;
+    [SerializeField] private int pNb;
     [SerializeField] private int playerKillScore;
 
     private GameManager gameManager;
 
+    private AudioManager audioManager;
+
     [HideInInspector] public bool imDead = false;
 
     [SerializeField] private GameObject Marker;
-    private GameObject targetMarker;
 
     [Header("NPC")]
     private GameObject NPC;
@@ -43,7 +44,6 @@ public class Aim2: MonoBehaviour
     private float currentFollowTime;
     [SerializeField] private float NPCHitDistance;
     [SerializeField] private float nPCAttackCooldownTime;
-    private bool nPCAttackOnCD;
     [SerializeField] private GameObject blood;
     #endregion
 
@@ -59,6 +59,7 @@ public class Aim2: MonoBehaviour
         sight.GetComponent<SpriteRenderer>().color = sightColor;
 
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
     }
 
     public void OnLook(InputAction.CallbackContext context)
@@ -70,7 +71,7 @@ public class Aim2: MonoBehaviour
     {
         if(!shotOnCD && focusedTarget && !imDead)
         {
-            Debug.Log("boom");
+            audioManager.Play("BoltShot");
 
             if(focusedTarget.tag == "Player")
             {
@@ -80,19 +81,22 @@ public class Aim2: MonoBehaviour
                 Debug.Log("Player " + pNb + " score: " + score);
 
                 focusedTarget.GetComponent<PlayerController>().DIE();
+                focusedTarget.GetComponent<PlayerController>().marker.SetActive(false);
+
+                audioManager.Play("BoltHit");
             }
             else if(focusedTarget.tag == "NPC")
             {
                 NPCPlayerFollow = true;
                 NPC = focusedTarget;
+
+                focusedTarget.GetComponent<AIBehaviour>().marker.SetActive(false);
             }
 
             if (sightPositionRestOnShot)
             {
                 sight.transform.position = spawnPoint;
             }
-
-            GameObject.Destroy(targetMarker);
 
             shotOnCD = true;
             StartCoroutine(ShotCooldown(shotCooldown));
@@ -115,7 +119,7 @@ public class Aim2: MonoBehaviour
 
         if (!shotOnCD && !imDead)
         {
-            sight.transform.position += lookDirection * 0.01f * sightMooveSpeed;
+            sight.transform.position += lookDirection * Time.deltaTime * sightMooveSpeed;
         }
         #endregion
 
@@ -143,7 +147,7 @@ public class Aim2: MonoBehaviour
 
             if (temporaryTarget != focusedTarget && !shotOnCD)
             {
-                if(focusedTarget != null && (focusedTarget.tag == "NPC" && focusedTarget.GetComponent<AIBehaviour>().sightsNb == 1) | (focusedTarget.tag == "player" && focusedTarget.GetComponent<PlayerController>().sightsNb == 1))
+                if(focusedTarget != null)
                 {
                     if (focusedTarget.tag == "NPC")
                     {
@@ -154,28 +158,35 @@ public class Aim2: MonoBehaviour
                         focusedTarget.GetComponent<PlayerController>().sightsNb += -1;
                     }
 
-                    GameObject.Destroy(targetMarker);
+                    if(focusedTarget.tag == "NPC" && focusedTarget.GetComponent<AIBehaviour>().sightsNb == 0)
+                    {
+                        focusedTarget.GetComponent<AIBehaviour>().marker.SetActive(false);
+                    }
+                    else if (focusedTarget.tag == "Player" && focusedTarget.GetComponent<PlayerController>().sightsNb == 0)
+                    {
+                        focusedTarget.GetComponent<PlayerController>().marker.SetActive(false);
+                    }
                 }
 
                 if (temporaryTarget && temporaryTarget.tag == "NPC")
                 {
-                    temporaryTarget.GetComponent<AIBehaviour>().sightsNb += 1;
+                    AIBehaviour controller = temporaryTarget.GetComponent<AIBehaviour>();
+                    controller.sightsNb += 1;
+                    controller.marker.SetActive(true);
+                    focusedTarget = temporaryTarget;
                 }
                 else if (temporaryTarget && temporaryTarget.tag == "Player")
                 {
-                    temporaryTarget.GetComponent<PlayerController>().sightsNb += 1;
-                }
-
-                if (temporaryTarget)
-                {
-                    targetMarker = GameObject.Instantiate(Marker, new Vector3(temporaryTarget.transform.position.x, temporaryTarget.transform.position.y + 1, temporaryTarget.transform.position.z), temporaryTarget.transform.rotation, temporaryTarget.transform);
+                    PlayerController controller = temporaryTarget.GetComponent<PlayerController>();
+                    controller.sightsNb += 1;
+                    controller.marker.SetActive(true);
                     focusedTarget = temporaryTarget;
                 }
             }
         }
         else
         {
-            if (focusedTarget != null && (focusedTarget.tag == "NPC" && focusedTarget.GetComponent<AIBehaviour>().sightsNb == 1) | (focusedTarget.tag == "player" && focusedTarget.GetComponent<PlayerController>().sightsNb == 1))
+            if (focusedTarget != null)
             {
                 if (focusedTarget.tag == "NPC")
                 {
@@ -186,7 +197,15 @@ public class Aim2: MonoBehaviour
                     focusedTarget.GetComponent<PlayerController>().sightsNb += -1;
                 }
 
-                GameObject.Destroy(targetMarker);
+                if (focusedTarget.tag == "NPC" && focusedTarget.GetComponent<AIBehaviour>().sightsNb == 0)
+                {
+                    focusedTarget.GetComponent<AIBehaviour>().marker.SetActive(false);
+                }
+                else if (focusedTarget.tag == "Player" && focusedTarget.GetComponent<PlayerController>().sightsNb == 0)
+                {
+                    focusedTarget.GetComponent<PlayerController>().marker.SetActive(false);
+                }
+
                 focusedTarget = null;
             }
         }
@@ -201,8 +220,9 @@ public class Aim2: MonoBehaviour
                 currentFollowTime += Time.deltaTime; 
                 if(Vector3.Distance(transform.position, NPC.transform.position) < NPCHitDistance)
                 {
-                    Debug.Log("Punch"!);
-                    blood.SetActive(true);
+                    audioManager.Play("SplashingBlood");
+
+                    blood.GetComponent<ParticleSystem>().Play(true);
                     NPCPlayerFollow = false;
                     NPC.GetComponent<AIBehaviour>().SetDestination(Vector3.zero);
                     currentFollowTime = 0;
@@ -235,13 +255,5 @@ public class Aim2: MonoBehaviour
 
         shotOnCD = false;
         StopCoroutine(ShotCooldown(1));
-    }
-
-    private IEnumerator NPCAttackCooldown(float time)
-    {
-        yield return new WaitForSeconds(time);
-
-        nPCAttackOnCD = false;
-        StopCoroutine(NPCAttackCooldown(1));
     }
 }

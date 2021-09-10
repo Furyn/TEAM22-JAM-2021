@@ -112,7 +112,7 @@ Transform:
   m_GameObject: {fileID: 1156105909789155372}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 5438870283011427260}
   - {fileID: 5016069279467318210}
@@ -179,6 +179,14 @@ MonoBehaviour:
   agent: {fileID: 8424016382344730392}
   timeMin: 1
   timeMax: 5
+  maxPosX: 44.9
+  minPosX: -38.81
+  maxPosY: 19
+  minPosY: -27.81
+  sightsNb: 0
+  marker: {fileID: 0}
+  markerPrefab: {fileID: 2823786739021281863, guid: 21396adfa5af9c844b5977c0397d5d57,
+    type: 3}
 --- !u!54 &5998396563337378063
 Rigidbody:
   m_ObjectHideFlags: 0

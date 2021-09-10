@@ -20,13 +20,19 @@ public class PlayerController : MonoBehaviour
     private Vector2 lookInput = Vector2.zero;
 
     [HideInInspector] public int sightsNb;
-
+    [HideInInspector] public GameObject marker;
+    [SerializeField] private GameObject markerPrefab;
     [HideInInspector]public bool imDead = false;
+
+    public GameManager gm = null;
 
     private void Start()
     {
         Animator = gameObject.GetComponent<Animator>();
         rb = gameObject.GetComponent<Rigidbody>();
+        marker = GameObject.Instantiate(markerPrefab, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), transform.rotation, transform);
+        marker.SetActive(false);
+        gm = FindObjectOfType<GameManager>();
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -73,10 +79,13 @@ public class PlayerController : MonoBehaviour
 
     public void StartGame()
     {
+
+
         GameObject canvas = GameObject.Find("Canvas");
 
         if(canvas.transform.GetChild(1).gameObject.activeSelf && canvas.GetComponent<CharacterScreen>().playerCount >= 2)
         {
+            gm.ButtonStart();
             canvas.transform.GetChild(1).gameObject.SetActive(false);
             Time.timeScale = 1f;
         }

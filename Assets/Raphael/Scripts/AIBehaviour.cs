@@ -18,15 +18,23 @@ public class AIBehaviour : MonoBehaviour
     private float timeUntilNextPos;
     private float posX;
     private float posZ;
+    public float maxPosX;
+    public float minPosX;
+    public float maxPosY;
+    public float minPosY;
 
     private Vector3 newDestination = new Vector3();
 
     [HideInInspector] public int sightsNb;
+    [HideInInspector] public GameObject marker;
+    [SerializeField] private GameObject markerPrefab;
 
     private void Start()
     {
         Animator = gameObject.GetComponent<Animator>();
         navAgent = gameObject.GetComponent<NavMeshAgent>();
+        marker = GameObject.Instantiate(markerPrefab, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), transform.rotation, transform);
+        marker.SetActive(false);
         StartCoroutine(NextPos());
     }
 
@@ -49,8 +57,8 @@ public class AIBehaviour : MonoBehaviour
         if (newDestination == Vector3.zero)
         {
             timeUntilNextPos = Random.Range(timeMin, timeMax);
-            posX = Random.Range(-10.0f, 10.0f);
-            posZ = Random.Range(-10.0f, 10.0f);
+            posX = Random.Range(minPosX, maxPosX);
+            posZ = Random.Range(minPosY, maxPosY);
             destination = new Vector3(posX, 0, posZ);
         }
         else

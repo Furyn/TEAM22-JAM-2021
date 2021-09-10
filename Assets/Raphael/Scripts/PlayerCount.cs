@@ -34,21 +34,18 @@ public class PlayerCount : MonoBehaviour
         {
             inputManager.playerPrefab = playerPrefabB;
             inputManager.playerPrefab.GetComponent<Aim2>().sightColor = p2SightColor;
-            inputManager.playerPrefab.GetComponent<Aim2>().pNb = 2;
         }
 
         else if (playerCount == 2)
         {
             inputManager.playerPrefab = playerPrefabC;
             inputManager.playerPrefab.GetComponent<Aim2>().sightColor = p3SightColor;
-            inputManager.playerPrefab.GetComponent<Aim2>().pNb = 3;
         }
 
         else if (playerCount == 3)
         {
             inputManager.playerPrefab = playerPrefabD;
             inputManager.playerPrefab.GetComponent<Aim2>().sightColor = p4SightColor;
-            inputManager.playerPrefab.GetComponent<Aim2>().pNb = 4;
         }
     }
 
