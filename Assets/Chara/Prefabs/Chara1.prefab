@@ -388,6 +388,7 @@ MonoBehaviour:
   markerPrefab: {fileID: 2823786739021281863, guid: 21396adfa5af9c844b5977c0397d5d57,
     type: 3}
   imDead: 0
+  gm: {fileID: 0}
 --- !u!1 &4540973073777751974
 GameObject:
   m_ObjectHideFlags: 0
@@ -800,6 +801,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8006544140571208266}
     m_Modifications:
+    - target: {fileID: 304524008703364588, guid: dab93ac6354be334d8244da2a85cffc1,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1056020578607174607, guid: dab93ac6354be334d8244da2a85cffc1,
         type: 3}
       propertyPath: m_RootOrder
@@ -869,6 +875,11 @@ PrefabInstance:
         type: 3}
       propertyPath: InitialModule.startSpeed.minScalar
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3487382936199498841, guid: dab93ac6354be334d8244da2a85cffc1,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5931454805791205618, guid: dab93ac6354be334d8244da2a85cffc1,
         type: 3}
