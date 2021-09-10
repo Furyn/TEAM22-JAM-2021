@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Raphael/Tuto.unity
     guid: b4da95fb8f087b04a8ecf185a85fe5bc
   - enabled: 1
+    path: Assets/FinalScene/MainScene.unity
+    guid: 0e664c77582807a4fa7510396f0160d8
+  - enabled: 0
     path: Assets/Raphael/SceneRaf2.unity
     guid: 3efea8f1fd1a0e84a8d580d31a46dd9b
   - enabled: 0
