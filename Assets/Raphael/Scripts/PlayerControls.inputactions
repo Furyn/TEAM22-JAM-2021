@@ -233,17 +233,6 @@
                     "action": "Start Game",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "aacf1ae1-c142-4b86-b7f1-e5317c3dafb1",
-                    "path": "<Keyboard>/b",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Start Game",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         }
