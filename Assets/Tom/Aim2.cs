@@ -31,10 +31,11 @@ public class Aim2: MonoBehaviour
 
     private GameManager gameManager;
 
+    private AudioManager audioManager;
+
     [HideInInspector] public bool imDead = false;
 
     [SerializeField] private GameObject Marker;
-    private GameObject targetMarker;
 
     [Header("NPC")]
     private GameObject NPC;
@@ -58,6 +59,7 @@ public class Aim2: MonoBehaviour
         sight.GetComponent<SpriteRenderer>().color = sightColor;
 
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
     }
 
     public void OnLook(InputAction.CallbackContext context)
@@ -69,7 +71,7 @@ public class Aim2: MonoBehaviour
     {
         if(!shotOnCD && focusedTarget && !imDead)
         {
-            Debug.Log("boom");
+            audioManager.Play("BoltShot");
 
             if(focusedTarget.tag == "Player")
             {
@@ -80,6 +82,8 @@ public class Aim2: MonoBehaviour
 
                 focusedTarget.GetComponent<PlayerController>().DIE();
                 focusedTarget.GetComponent<PlayerController>().marker.SetActive(false);
+
+                audioManager.Play("BoltHit");
             }
             else if(focusedTarget.tag == "NPC")
             {
@@ -216,7 +220,8 @@ public class Aim2: MonoBehaviour
                 currentFollowTime += Time.deltaTime; 
                 if(Vector3.Distance(transform.position, NPC.transform.position) < NPCHitDistance)
                 {
-                    Debug.Log("Punch"!);
+                    audioManager.Play("SplashingBlood");
+
                     blood.GetComponent<ParticleSystem>().Play(true);
                     NPCPlayerFollow = false;
                     NPC.GetComponent<AIBehaviour>().SetDestination(Vector3.zero);

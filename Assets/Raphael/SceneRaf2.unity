@@ -1762,6 +1762,176 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 594947291}
   m_CullTransparentMesh: 1
+--- !u!1 &600986688
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 600986690}
+  - component: {fileID: 600986689}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: AudioManager
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &600986689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 600986688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3dd5b3fedfb4e438ae30f8792f4765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Button1
+    clips:
+    - {fileID: 8300000, guid: a7211620d31b2e04f825b8d8cfa13cf9, type: 3}
+    volume: 0
+    pitch: 0
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+    hasMultipleClips: 0
+  - name: Button2
+    clips:
+    - {fileID: 8300000, guid: dcd3bee7867d93a4ea5424a68a15098f, type: 3}
+    volume: 0
+    pitch: 0
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+    hasMultipleClips: 0
+  - name: SplashingBlood
+    clips:
+    - {fileID: 8300000, guid: b38daa76f1651c34883f9a3a5dd83c5d, type: 3}
+    volume: 0
+    pitch: 0
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+    hasMultipleClips: 0
+  - name: TimerCountdown
+    clips:
+    - {fileID: 8300000, guid: fd6e22bb2c8b29246b533c8a18b90a80, type: 3}
+    volume: 0
+    pitch: 0
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+    hasMultipleClips: 0
+  - name: CrowdEvent
+    clips:
+    - {fileID: 8300000, guid: 1aec94a9e0455f14d8781dfc3264c33f, type: 3}
+    volume: 0
+    pitch: 0
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+    hasMultipleClips: 0
+  - name: RoundEnd
+    clips:
+    - {fileID: 8300000, guid: 74e6b05f0c6b93c4991d30d7ede8b046, type: 3}
+    volume: 0
+    pitch: 0
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+    hasMultipleClips: 0
+  - name: DropsOfBlood
+    clips:
+    - {fileID: 8300000, guid: 76a4eb118a286a94c817ac7e0f3d460b, type: 3}
+    volume: 0
+    pitch: 0
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+    hasMultipleClips: 0
+  - name: BoltHit
+    clips:
+    - {fileID: 8300000, guid: 1bfb01bb1054d9d4488b2ebd4f463dcc, type: 3}
+    volume: 0
+    pitch: 0
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+    hasMultipleClips: 0
+  - name: LampSpawn
+    clips:
+    - {fileID: 8300000, guid: a3c00e39b09a2064fa2ab224cf952eba, type: 3}
+    volume: 0
+    pitch: 0
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+    hasMultipleClips: 0
+  - name: LampsLaser
+    clips:
+    - {fileID: 8300000, guid: 9651291e6ecab824c88c455a47d4fb6f, type: 3}
+    volume: 0
+    pitch: 0
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+    hasMultipleClips: 0
+  - name: MainMusic
+    clips:
+    - {fileID: 8300000, guid: cb9f7c40ac8158e43a9430e4bf9aacaf, type: 3}
+    volume: 0
+    pitch: 0
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+    hasMultipleClips: 0
+  - name: RoundMusic
+    clips:
+    - {fileID: 8300000, guid: 78299de19f0daed459a253f72f20b449, type: 3}
+    volume: 0
+    pitch: 0
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+    hasMultipleClips: 0
+  - name: BoltShot
+    clips:
+    - {fileID: 8300000, guid: a27ba91e1167977468c97578568ffc19, type: 3}
+    volume: 0
+    pitch: 0
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+    hasMultipleClips: 0
+  - name: WinMusic
+    clips:
+    - {fileID: 8300000, guid: a25ea37c058befd46907523ef631d497, type: 3}
+    volume: 0
+    pitch: 0
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+    hasMultipleClips: 0
+--- !u!4 &600986690
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 600986688}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &617363081
 GameObject:
   m_ObjectHideFlags: 0
@@ -2183,6 +2353,16 @@ MonoBehaviour:
   durationBlackPanel: 5
   panelFade: {fileID: 0}
   startButton: {fileID: 0}
+  screenFinal: {fileID: 0}
+  scoreTextP1: {fileID: 0}
+  scoreTextP2: {fileID: 0}
+  scoreTextP3: {fileID: 0}
+  scoreTextP4: {fileID: 0}
+  liveScore: {fileID: 0}
+  liveScoreTextP1: {fileID: 0}
+  liveScoreTextP2: {fileID: 0}
+  liveScoreTextP3: {fileID: 0}
+  liveScoreTextP4: {fileID: 0}
   current_manche: 0
   manche: 3
   durationManche: 30

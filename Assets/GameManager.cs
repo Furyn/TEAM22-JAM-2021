@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int p3Score;
     [HideInInspector] public int p4Score;
 
+    //Audio
+    private AudioManager audioManager;
+
     [Header("General Settings")]
     public float durationBeforeStart = 5f;
     public float durationBlackPanel = 5f;
@@ -80,6 +83,8 @@ public class GameManager : MonoBehaviour
         timerBeforeFirstEvent = durationBeforeFirstEvent;
         panelFadeImage = panelFade.GetComponent<Image>();
         timerBlackPanel = durationBlackPanel;
+
+        audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
     }
 
     private void Update()
@@ -265,6 +270,10 @@ public class GameManager : MonoBehaviour
         {
             timerManche -= Time.deltaTime;
     
+            if(timerManche < 10f && !audioManager.IsPlaying("TimerCountdown"))
+            {
+                audioManager.Play("TimerCountdown");
+            }
             if (timerManche <= 0f)
             {
                 StopCurrentManche();
@@ -329,6 +338,7 @@ public class GameManager : MonoBehaviour
 
     public void ButtonStart()
     {
+        audioManager.Play("Button1");
         timerText.gameObject.SetActive(true);
         mancheText.gameObject.SetActive(true);
         waitBeforeStart = true;
@@ -339,6 +349,7 @@ public class GameManager : MonoBehaviour
 
     private void ShowFinalScreen()
     {
+        audioManager.Play("WinMusic");
         liveScore.SetActive(false);
         screenFinal.SetActive(true);
         scoreTextP1.text = p1Score.ToString();
