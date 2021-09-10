@@ -14,6 +14,8 @@ public class CharacterScreen : MonoBehaviour
     [SerializeField] private GameObject mesh3;
     [SerializeField] private GameObject mesh4;
 
+    [SerializeField] private GameObject startButton;
+
     private GameObject playerManager;
     public int playerCount;
     public Text instructions;
@@ -72,6 +74,7 @@ public class CharacterScreen : MonoBehaviour
 
     public void OnPlay()
     {
+        startButton.SetActive(true);
         characterScreen.SetActive(false);
         Time.timeScale = 1f;
     }
